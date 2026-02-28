@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Meal Buddy</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#1a6fd4;
+  --primary-mid:#3589e8;
+  --primary-light:#76b8f7;
+  --primary-pale:#ddeeff;
+  --cream:#f5faff;
+  --warm:#e09b5a;
+  --warm-light:#fae3c6;
+  --card:#fff;
+  --text:#0d1f3c;
+  --muted:#6080a8;
+  --border:#c8ddf5;
+}
+[data-theme="dark"] {
+  --cream:#0a111e;
+  --card:#131f32;
+  --text:#ffffff;
+  --muted:#a8c4e8;
+  --border:#1e3358;
+  --primary-pale:#0d2248;
+  --primary:#5aabff;
+  --primary-mid:#78bdff;
+  --primary-light:#9dcefd;
+  --warm-light:#2a1f12;
+  --warm:#f0ab6a;
+}
+[data-theme="dark"] .ings-center h2,
+[data-theme="dark"] .intro-wrap h2,
+[data-theme="dark"] .feat-card h4,
+[data-theme="dark"] .rp-header h3,
+[data-theme="dark"] .detail-section h3,
+[data-theme="dark"] .rc-body h4,
+[data-theme="dark"] .nut-val { color:#fff !important; }
+[data-theme="dark"] .ings-center .sub,
+[data-theme="dark"] .intro-wrap .lead,
+[data-theme="dark"] .feat-card p,
+[data-theme="dark"] .rc-body p,
+[data-theme="dark"] .step-text,
+[data-theme="dark"] .nut-lbl,
+[data-theme="dark"] .sug-section p,
+[data-theme="dark"] .side-tip-card ul li { color:#c8ddf5 !important; }
+[data-theme="dark"] .rc { background:#131f32; }
+[data-theme="dark"] .rc:hover { border-color:#5aabff; box-shadow:0 16px 36px rgba(90,171,255,.18); }
+[data-theme="dark"] .filter-chip { background:#131f32; color:#c8ddf5; border-color:#1e3358; }
+[data-theme="dark"] .filter-chip:hover, [data-theme="dark"] .filter-chip.active { background:#0d2248; color:#fff; border-color:#5aabff; }
+[data-theme="dark"] .ing-input-row input { background:#0a111e; color:#fff; border-color:#1e3358; }
+[data-theme="dark"] .ing-input-row input::placeholder { color:#6890b8; }
+[data-theme="dark"] .ing-tag { background:#0d2248; color:#9dcefd; border-color:#2a4a80; }
+[data-theme="dark"] .ing-tag button { color:#9dcefd; }
+[data-theme="dark"] .ing-pill { background:#0d2248; color:#9dcefd; border-color:#2a4a80; }
+[data-theme="dark"] .tip-box { background:#1e1408; border-color:rgba(240,171,106,.25); }
+[data-theme="dark"] .tip-box h3 { color:#f0ab6a !important; }
+[data-theme="dark"] .tip-box p { color:#c8996a; }
+[data-theme="dark"] .nut-item { background:#0a111e; border-color:#1e3358; }
+[data-theme="dark"] .intro-quote { background:#0d2248; color:#9dcefd; border-color:#5aabff; }
+[data-theme="dark"] .empty-hint { color:#a8c4e8; }
+[data-theme="dark"] .bw { background:#2a1f12; color:#f0ab6a; }
+[data-theme="dark"] .bg { background:#0d2248; color:#9dcefd; }
+[data-theme="dark"] .badge[style*="rgba(26,111,212"] { background:rgba(90,171,255,.15) !important; color:#9dcefd !important; }
+[data-theme="dark"] .fridge-body { background:linear-gradient(160deg,#1a2a3a,#243447); border-color:#2a4060; }
+[data-theme="dark"] .fridge-door-front { background:linear-gradient(160deg,#1f3350,#2a4060); }
+[data-theme="dark"] .fridge-inner { background:linear-gradient(180deg,#0d1822 0%,#111e2e 100%); }
+[data-theme="dark"] .fridge-handle-main { background:linear-gradient(180deg,#3a5580,#2a3f60,#3a5580); }
+[data-theme="dark"] .fridge-led { background:linear-gradient(90deg,#3a78b8,#5aabff,#3a78b8);box-shadow:0 0 28px #5aabff; }
+[data-theme="dark"] .open-hint { color:#9dcefd; }
+[data-theme="dark"] .inner-tag-row { background:rgba(13,24,34,.6);border-color:#1e3358; }
+[data-theme="dark"] .inner-input-row input { background:rgba(10,17,30,.8);border-color:#1e3358;color:#fff; }
+[data-theme="dark"] .inner-sug-chip { background:rgba(13,24,34,.65);border-color:#1e3358;color:#9dcefd; }
+[data-theme="dark"] .kitchen-deco-col { filter: brightness(0.7) saturate(0.8); }
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);transition:.4s;overflow-x:hidden}
+
+/* ── HEADER ── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:9999;height:66px;
+  background:rgba(245,250,255,.94);backdrop-filter:blur(16px);
+  border-bottom:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;transition:.4s;
+}
+[data-theme="dark"] header{background:rgba(13,24,39,.94)}
+.logo{font-weight:900;font-size:1.4rem;color:var(--primary);cursor:pointer;display:flex;align-items:center;gap:7px}
+.logo b{color:var(--primary-light)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-link{font-size:.9rem;font-weight:700;color:var(--muted);cursor:pointer;padding:7px 16px;border-radius:50px;transition:.2s}
+.nav-link:hover{background:var(--primary-pale);color:var(--primary)}
+.theme-btn{background:var(--primary-pale);border:none;border-radius:50px;padding:7px 16px;cursor:pointer;font-size:.85rem;font-weight:700;color:var(--primary);font-family:'Nunito',sans-serif;transition:.2s}
+.theme-btn:hover{background:var(--primary-light);color:#fff}
+#back-btn{
+  position:fixed;top:80px;left:18px;z-index:9998;display:none;
+  background:var(--card);border:2px solid var(--primary-light);border-radius:50px;
+  padding:8px 20px;cursor:pointer;font-size:.9rem;font-weight:900;color:var(--primary);
+  transition:.3s;box-shadow:0 4px 16px rgba(26,111,212,.15);font-family:'Nunito',sans-serif;
+  letter-spacing:.2px;
+}
+#back-btn:hover{border-color:var(--primary);background:var(--primary-pale);color:var(--primary);box-shadow:0 6px 20px rgba(26,111,212,.25)}
+body:has(#page-results.active) #back-btn{
+  background:var(--card);
+  color:var(--primary);
+  border-color:var(--primary-light);
+  backdrop-filter:none;
+  box-shadow:0 4px 16px rgba(26,111,212,.15);
+}
+body:has(#page-results.active) #back-btn:hover{
+  border-color:var(--primary);background:var(--primary-pale);color:var(--primary);box-shadow:0 6px 20px rgba(26,111,212,.25);
+}
+[data-theme="dark"] body:has(#page-results.active) #back-btn{
+  background:rgba(13,34,72,.9);color:#9dcefd;border-color:#2a5090;
+}
+[data-theme="dark"] body:has(#page-results.active) #back-btn:hover{
+  background:#0d2248;color:#fff;border-color:#5aabff;
+}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:66px}
+.page.active{display:block;animation:fadeUp .4s cubic-bezier(.22,1,.36,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════ HOME ══════ */
+#page-home{
+  display:none;flex-direction:column;min-height:100vh;padding-top:0;
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#050e1f 0%,#0a2260 25%,#0f55b8 55%,#2880e0 78%,#55adf5 100%);
+}
+#page-home.active{display:flex}
+#page-home::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 50% at 80% 20%,rgba(96,184,248,.2) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 15% 70%,rgba(29,96,200,.28) 0%,transparent 55%)}
+.star-field{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite var(--dl,0s)}
+@keyframes twinkle{0%,100%{opacity:var(--o1,.1);transform:scale(1)}50%{opacity:var(--o2,.6);transform:scale(1.4)}}
+.bg-blob{position:absolute;border-radius:50%;pointer-events:none;z-index:1}
+.blob1{width:520px;height:520px;background:radial-gradient(circle,rgba(45,136,232,.35),transparent 70%);top:-100px;right:-80px;animation:driftBlob 12s ease-in-out infinite}
+.blob2{width:320px;height:320px;background:radial-gradient(circle,rgba(96,192,248,.2),transparent 70%);bottom:180px;left:-60px;animation:driftBlob 9s ease-in-out infinite 3s}
+@keyframes driftBlob{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,30px) scale(.95)}}
+.food-deco{position:absolute;pointer-events:none;user-select:none;animation:floatAnim 5s ease-in-out infinite;z-index:2}
+.food-deco:nth-child(4){font-size:3.5rem;top:14%;right:7%;animation-delay:0s;opacity:.22}
+.food-deco:nth-child(5){font-size:2.2rem;top:52%;right:11%;animation-delay:1.2s;opacity:.18}
+.food-deco:nth-child(6){font-size:2.8rem;top:22%;left:5%;animation-delay:.6s;opacity:.20}
+.food-deco:nth-child(7){font-size:2rem;bottom:28%;left:9%;animation-delay:1.8s;opacity:.16}
+.food-deco:nth-child(8){font-size:4rem;bottom:22%;right:5%;animation-delay:2.2s;opacity:.20}
+@keyframes floatAnim{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-18px) rotate(5deg)}}
+.hero-inner{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;padding:80px 24px 20px}
+#page-home h1{font-size:clamp(3rem,8.5vw,6rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:22px;text-shadow:0 4px 32px rgba(0,40,120,.4)}
+#page-home h1 em{color:#a8d8ff;font-style:normal;text-shadow:0 0 40px rgba(96,184,248,.5)}
+#page-home .sub{font-size:1.05rem;color:rgba(255,255,255,.7);max-width:600px;line-height:1.6;margin-bottom:44px;font-weight:500;white-space:nowrap}
+.btn-hero{background:linear-gradient(135deg,#2d88e8,#60b8f8);color:#fff;border:none;padding:17px 54px;border-radius:50px;font-size:1.05rem;font-weight:800;cursor:pointer;transition:.3s;font-family:'Nunito',sans-serif;box-shadow:0 10px 32px rgba(45,136,232,.45)}
+.btn-hero:hover{transform:translateY(-4px);box-shadow:0 18px 48px rgba(45,136,232,.6)}
+.home-img-strip{position:relative;z-index:2;height:200px;display:flex;overflow:hidden;margin-top:auto;flex-shrink:0}
+.home-img-strip::before{content:'';position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,#1055b8,transparent);z-index:2;pointer-events:none}
+.home-img-strip::after{content:'';position:absolute;inset:0;background:rgba(10,22,60,.3);z-index:1;pointer-events:none}
+.strip-img{flex:1;object-fit:cover;min-width:0;filter:saturate(1.1) brightness(.65)}
+
+/* ══════ INTRO ══════ */
+#page-intro{
+  background:linear-gradient(160deg,#ddeeff 0%,#f0f8ff 40%,#e4f2ff 100%);
+  position:relative;overflow:hidden;
+}
+[data-theme="dark"] #page-intro{
+  background:linear-gradient(160deg,#020812 0%,#040e22 30%,#071530 60%,#0a1e40 100%);
+}
+#page-intro .page-anim-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+[data-theme="dark"] #page-intro .page-anim-bg .ings-bubble{
+  background:radial-gradient(circle at 30% 30%,rgba(90,171,255,.12),rgba(26,80,180,.02));
+}
+[data-theme="dark"] #page-intro .page-anim-bg .ings-particle{
+  background:rgba(90,171,255,.12);
+}
+.intro-hero-band{
+  border-radius:24px;padding:36px 36px 30px;margin-bottom:0;
+  border:1.5px solid rgba(26,111,212,.15);
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(26,111,212,.08) 0%,rgba(26,111,212,.03) 100%);
+}
+[data-theme="dark"] .intro-hero-band{
+  background:linear-gradient(135deg,rgba(6,20,50,.85) 0%,rgba(10,30,70,.75) 100%);
+  border-color:rgba(90,171,255,.25);
+}
+.intro-hero-band::before{content:'🍀';position:absolute;right:-10px;top:-10px;font-size:8rem;opacity:.06;transform:rotate(20deg);pointer-events:none}
+.intro-wrap{max-width:780px;margin:0 auto;padding:50px 24px 80px;position:relative;z-index:1}
+.intro-wrap h2{font-size:2.4rem;font-weight:900;margin-bottom:14px;color:var(--primary)}
+[data-theme="dark"] .intro-hero-band h2{color:#fff !important}
+.intro-wrap .lead{font-size:1.05rem;margin-bottom:0;line-height:1.8;font-weight:500;color:var(--muted)}
+[data-theme="dark"] .intro-hero-band .lead{color:rgba(255,255,255,.88) !important}
+.intro-img-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:36px;margin-top:36px}
+.intro-img-row img{width:100%;height:140px;object-fit:cover;border-radius:18px;filter:brightness(.9);transition:.3s}
+.intro-img-row img:hover{transform:scale(1.03);filter:brightness(1)}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:36px}
+.feat-card{background:var(--card);border-radius:22px;padding:26px;border:1.5px solid var(--border);transition:.25s}
+.feat-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(26,111,212,.1)}
+[data-theme="dark"] .feat-card{background:rgba(19,31,50,.9);border-color:#1e3358}
+.feat-icon{font-size:2rem;margin-bottom:14px}
+.feat-card h4{font-weight:800;margin-bottom:8px}
+.feat-card p{font-size:.9rem;color:var(--muted);line-height:1.65;font-weight:500}
+.intro-quote{border-left:5px solid var(--primary);padding:18px 26px;font-size:1.1rem;font-style:italic;font-weight:700;color:var(--primary);background:var(--primary-pale);border-radius:0 18px 18px 0}
+[data-theme="dark"] .intro-quote{background:rgba(90,171,255,.1);color:#9dcefd;border-color:#5aabff}
+
+/* ══════ INPUT PAGE — FRIDGE LAYOUT ══════ */
+#page-ings{
+  background:linear-gradient(160deg,#ddeeff 0%,#f0f8ff 40%,#e4f2ff 100%);
+  position:relative;overflow:hidden;
+}
+[data-theme="dark"] #page-ings{background:linear-gradient(160deg,#060d18 0%,#0a111e 50%,#060e1c 100%)}
+
+.ings-bg-anim{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.ings-bubble{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(180,220,255,.45),rgba(26,111,212,.06));
+  animation:floatBubble var(--dur,14s) ease-in-out infinite;
+  animation-delay:var(--delay,0s);
+}
+[data-theme="dark"] .ings-bubble{background:radial-gradient(circle at 30% 30%,rgba(90,171,255,.16),rgba(26,80,180,.03))}
+@keyframes floatBubble{
+  0%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(var(--tx,30px),var(--ty,-40px)) scale(1.07)}
+  66%{transform:translate(calc(var(--tx,30px)*-.5),calc(var(--ty,-40px)*.4)) scale(.95)}
+  100%{transform:translate(0,0) scale(1)}
+}
+.ings-particle{
+  position:absolute;border-radius:50%;
+  background:rgba(26,111,212,.08);
+  animation:particleDrift var(--pdur,22s) linear infinite;
+  animation-delay:var(--pdelay,0s);
+}
+[data-theme="dark"] .ings-particle{background:rgba(90,171,255,.09)}
+@keyframes particleDrift{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+  8%{opacity:.8}
+  92%{opacity:.5}
+  100%{transform:translateY(-120px) rotate(360deg);opacity:0}
+}
+#page-ings::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle,rgba(26,111,212,.04) 1.5px,transparent 1.5px);
+  background-size:40px 40px;
+}
+
+/* ══════ MAIN LAYOUT: center only ══════ */
+.ings-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:auto auto;
+  gap:0;
+  max-width:960px;
+  margin:0 auto;
+  padding:28px 24px 60px;
+  position:relative;
+  z-index:1;
+}
+.kitchen-deco-col{display:none}
+.quick-tip-col{display:none}
+
+.ings-center{
+  display:flex;flex-direction:column;align-items:center;
+  padding:0;
+  grid-column:1;
+  grid-row:1;
+}
+.ings-center h2{
+  font-size:2.4rem;font-weight:900;margin-bottom:6px;
+  color:var(--primary);text-align:center;
+  text-transform:uppercase;letter-spacing:1px;
+}
+.ings-center .sub{
+  color:var(--muted);margin-bottom:16px;font-weight:600;
+  text-align:center;max-width:580px;font-size:.9rem;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.season-strip-wrap{
+  grid-column:1;
+  grid-row:2;
+  padding:0;
+  width:100%;
+}
+
+/* ── KITCHEN DECO IMAGES ── */
+.kitchen-img-card{
+  width:100%;max-width:195px;
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 8px 28px rgba(26,111,212,.15);
+  border:2.5px solid rgba(255,255,255,.9);
+  transition:.35s cubic-bezier(.22,1,.36,1);
+  position:relative;
+}
+.kitchen-img-card:hover{transform:translateY(-6px) scale(1.025);box-shadow:0 18px 40px rgba(26,111,212,.22)}
+.kitchen-img-card img{width:100%;height:130px;object-fit:cover;display:block}
+.kitchen-img-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(10,30,80,.7));
+  color:#fff;font-size:.72rem;font-weight:800;
+  padding:12px 10px 8px;letter-spacing:.4px;
+}
+
+.kitchen-emoji-card{
+  width:100%;max-width:195px;
+  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(220,238,255,.85));
+  border:2px solid rgba(200,226,255,.8);
+  border-radius:20px;padding:18px 14px;
+  text-align:center;
+  box-shadow:0 6px 22px rgba(26,111,212,.1);
+  transition:.3s;
+  cursor:default;
+}
+[data-theme="dark"] .kitchen-emoji-card{background:linear-gradient(135deg,rgba(13,24,45,.9),rgba(20,36,65,.85));border-color:#1e3358}
+.kitchen-emoji-card:hover{transform:translateY(-5px);box-shadow:0 14px 34px rgba(26,111,212,.18)}
+.kitchen-emoji-card .ke-icon{font-size:2.4rem;display:block;margin-bottom:8px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.12))}
+.kitchen-emoji-card .ke-title{font-size:.78rem;font-weight:800;color:var(--primary);margin-bottom:3px}
+.kitchen-emoji-card .ke-sub{font-size:.7rem;color:var(--muted);font-weight:500;line-height:1.45}
+
+/* ── QUICK TIP CARDS (right col) ── */
+.tip-action-card{
+  width:100%;max-width:195px;
+  border-radius:22px;padding:20px 16px;
+  position:relative;overflow:hidden;
+  transition:.35s cubic-bezier(.22,1,.36,1);
+  cursor:pointer;text-align:left;
+  border:none;font-family:'Nunito',sans-serif;
+}
+.tip-action-card:hover{transform:translateY(-7px) scale(1.03);box-shadow:0 24px 55px rgba(0,0,0,.13)}
+.tip-action-card .tc-label{font-size:.62rem;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;opacity:.65}
+.tip-action-card .tc-title{font-size:.95rem;font-weight:900;margin-bottom:6px;line-height:1.3}
+.tip-action-card .tc-body{font-size:.78rem;line-height:1.6;font-weight:500;opacity:.9}
+.tip-action-card .tc-icon{font-size:2.2rem;margin-bottom:10px;display:block;filter:drop-shadow(0 2px 10px rgba(0,0,0,.18))}
+.tip-action-card .tc-arrow{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  font-size:1rem;font-weight:900;
+  margin-top:10px;
+  transition:.25s;
+}
+.tip-action-card:hover .tc-arrow{transform:translateX(5px);background:rgba(255,255,255,.42)}
+.tip-action-card .tc-deco{position:absolute;bottom:-18px;right:-14px;font-size:5rem;opacity:.08;pointer-events:none;transform:rotate(-15deg)}
+
+.tc-green{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}
+.tc-green .tc-label{color:rgba(255,255,255,.7)}
+.tc-orange{background:linear-gradient(135deg,#ff8c42,#ffb347);color:#fff}
+.tc-orange .tc-label{color:rgba(255,255,255,.7)}
+
+/* Info card for side columns */
+.side-info-card{
+  width:100%;max-width:195px;
+  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(220,238,255,.85));
+  border:2px solid rgba(200,226,255,.8);
+  border-radius:20px;padding:18px 14px;
+  text-align:center;
+  box-shadow:0 6px 22px rgba(26,111,212,.1);
+}
+[data-theme="dark"] .side-info-card{background:linear-gradient(135deg,rgba(13,24,45,.9),rgba(20,36,65,.85));border-color:#1e3358}
+.side-info-card .si-icon{font-size:2.2rem;display:block;margin-bottom:8px}
+.side-info-card .si-title{font-size:.78rem;font-weight:800;color:var(--primary);margin-bottom:3px}
+.side-info-card .si-sub{font-size:.7rem;color:var(--muted);font-weight:500;line-height:1.45}
+
+/* ══════ SEASON STRIP ══════ */
+.season-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:24px;
+}
+.season-card{
+  border-radius:24px;overflow:hidden;position:relative;
+  cursor:pointer;border:none;font-family:'Nunito',sans-serif;
+  min-height:200px;
+  transition:.35s cubic-bezier(.22,1,.36,1);
+  text-align:left;
+}
+.season-card:hover{transform:translateY(-10px) scale(1.025);box-shadow:0 28px 60px rgba(0,0,0,.22)}
+.season-card-canvas{position:absolute;inset:0;width:100%;height:100%}
+.season-card-content{
+  position:relative;z-index:2;
+  padding:22px 20px 18px;
+  display:flex;flex-direction:column;height:100%;
+  background:linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.38) 100%);
+}
+.season-card .sc-label{font-size:.7rem;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:6px;opacity:.85}
+.season-card .sc-title{font-size:1.12rem;font-weight:900;line-height:1.25;margin-bottom:6px}
+.season-card .sc-body{font-size:.82rem;line-height:1.55;font-weight:500;opacity:.9;flex:1}
+.season-card .sc-arrow{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.22);
+  font-size:1rem;font-weight:900;
+  margin-top:10px;
+  transition:.25s;
+  align-self:flex-start;
+}
+.season-card:hover .sc-arrow{transform:translateX(6px);background:rgba(255,255,255,.42)}
+
+.sc-spring{color:#fff}
+.sc-summer{color:#fff}
+.sc-autumn{color:#fff}
+.sc-winter{color:#fff}
+
+/* ══════ FRIDGE ══════ */
+.fridge-scene{width:100%;max-width:860px;perspective:1400px;position:relative;margin:0 auto}
+.fridge-body{
+  width:100%;
+  background:linear-gradient(160deg,#c8dff5 0%,#e0edf8 40%,#d5e8f5 100%);
+  border-radius:28px;border:2.5px solid #a8c8e8;position:relative;
+  box-shadow:6px 8px 0 0 rgba(26,111,212,.09),0 24px 70px rgba(26,111,212,.2),inset 2px 2px 0 rgba(255,255,255,.85),inset -2px -2px 0 rgba(0,0,0,.05);
+  overflow:visible;
+}
+.fridge-main{position:relative;min-height:560px;padding:0;border-radius:26px}
+.fridge-door-wrap{position:absolute;inset:0;z-index:10;transform-style:preserve-3d;transform-origin:left center;transition:transform .78s cubic-bezier(.4,0,.2,1)}
+.fridge-door-wrap.is-open{transform:perspective(1400px) rotateY(-112deg)}
+.fridge-door-front{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#bdd6f0 0%,#d8ecfa 50%,#c4daf0 100%);
+  border-radius:26px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  backface-visibility:hidden;
+  box-shadow:inset 3px 0 0 rgba(255,255,255,.65),inset -2px 0 rgba(0,0,0,.06);
+  overflow:hidden;user-select:none;
+}
+.fridge-door-front::before{content:'';position:absolute;left:0;top:0;bottom:0;width:14px;background:linear-gradient(90deg,rgba(0,0,0,.09),transparent);border-radius:26px 0 0 26px}
+.fridge-handle-main{position:absolute;right:26px;top:50%;transform:translateY(-50%);width:16px;height:110px;background:linear-gradient(180deg,#a8c4dc,#7898b8,#a8c4dc);border-radius:8px;box-shadow:3px 3px 8px rgba(0,0,0,.22),inset 1px 0 0 rgba(255,255,255,.45);z-index:2}
+.open-hint{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:1.35rem;font-weight:900;color:#3a6898;z-index:3;animation:bounceHint 2.2s ease-in-out infinite}
+@keyframes bounceHint{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.open-hint .hint-icon{font-size:3.5rem}
+.open-hint .hint-sub{font-size:.85rem;opacity:.55;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+
+/* Fridge scroll indicator */
+.fridge-scroll-btn{
+  position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);
+  z-index:20;background:linear-gradient(135deg,var(--primary),var(--primary-mid));
+  border:none;border-radius:50px;padding:6px 20px;
+  color:#fff;font-size:.82rem;font-weight:800;cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  box-shadow:0 4px 16px rgba(26,111,212,.35);
+  font-family:'Nunito',sans-serif;
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(4px)}}
+
+.fridge-inner{position:absolute;inset:0;background:linear-gradient(180deg,#f0f8ff 0%,#e4f2fd 100%);border-radius:26px;display:flex;flex-direction:column;overflow:hidden}
+.fridge-led{height:10px;flex-shrink:0;background:linear-gradient(90deg,#8ac8f4,#c0e4ff,#8ac8f4);border-radius:26px 26px 0 0;box-shadow:0 0 28px rgba(120,200,255,.7)}
+.fridge-inner-panel{flex:1;padding:20px 24px 16px;display:flex;flex-direction:column;gap:14px}
+.inner-tag-row{display:flex;flex-wrap:wrap;gap:9px;min-height:50px;align-items:center;background:rgba(255,255,255,.82);border-radius:16px;padding:12px 16px;border:2px solid rgba(26,111,212,.14);backdrop-filter:blur(10px)}
+.inner-tag-row .empty-label{color:var(--muted);font-size:.9rem;font-weight:600;font-style:italic}
+.inner-input-row{display:flex;gap:12px}
+.inner-input-row input{flex:1;padding:14px 20px;border:2px solid var(--border);border-radius:14px;font-size:1.05rem;background:rgba(255,255,255,.95);color:var(--text);outline:none;transition:.2s;font-family:'Nunito',sans-serif;font-weight:600}
+.inner-input-row input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(26,111,212,.1)}
+.inner-input-row input::placeholder{color:var(--muted);font-weight:500;font-size:.93rem}
+.inner-add-btn{background:var(--primary);color:#fff;border:none;border-radius:14px;padding:12px 26px;font-size:1.5rem;cursor:pointer;transition:.2s;font-weight:700;box-shadow:0 4px 14px rgba(26,111,212,.35)}
+.inner-add-btn:hover{background:var(--primary-mid);transform:scale(1.07)}
+.inner-sug-section{border-top:2px solid rgba(26,111,212,.09);padding-top:10px}
+.inner-sug-section p{font-size:.74rem;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.inner-sug-chips{display:flex;flex-wrap:wrap;gap:7px}
+.inner-sug-chip{background:rgba(255,255,255,.92);border:2px solid var(--border);border-radius:50px;padding:6px 13px;font-size:.84rem;cursor:pointer;transition:.2s;font-weight:700;font-family:'Nunito',sans-serif}
+.inner-sug-chip:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-pale);transform:translateY(-2px)}
+.find-btn-inner{width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-mid));color:#fff;border:none;border-radius:16px;padding:16px;font-size:1.08rem;font-weight:900;cursor:pointer;transition:.3s;font-family:'Nunito',sans-serif;box-shadow:0 8px 24px rgba(26,111,212,.38)}
+.find-btn-inner:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(26,111,212,.52)}
+.find-btn-inner:disabled{background:#b0c8e8;cursor:not-allowed;transform:none;box-shadow:none}
+.fridge-close-btn{position:absolute;top:12px;right:12px;z-index:20;background:rgba(255,255,255,.9);border:2px solid var(--border);border-radius:50%;width:34px;height:34px;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;transition:.2s;color:var(--muted);box-shadow:0 2px 10px rgba(0,0,0,.1);font-family:'Nunito',sans-serif;font-weight:900}
+.fridge-close-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.fridge-feet{display:flex;justify-content:space-between;padding:0 32px;margin-top:5px}
+.fridge-foot{width:34px;height:14px;background:linear-gradient(180deg,#a0bcd8,#88a4bc);border-radius:0 0 7px 7px}
+.fridge-tag-label{text-align:center;margin-top:18px;font-size:.83rem;font-weight:800;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:8px}
+.fridge-status-dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.55);animation:statusPulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes statusPulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.clear-all-btn{background:linear-gradient(135deg,#ef4444,#f87171);color:#fff;border:none;border-radius:50px;padding:7px 18px;font-size:.82rem;font-weight:800;cursor:pointer;transition:.25s;font-family:'Nunito',sans-serif;box-shadow:0 3px 10px rgba(239,68,68,.3);display:flex;align-items:center;gap:6px}
+.clear-all-btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 6px 18px rgba(239,68,68,.45)}
+
+.ing-tag{display:flex;align-items:center;gap:7px;background:var(--primary-pale);color:var(--primary);border:1.5px solid var(--primary-light);border-radius:50px;padding:5px 12px;font-size:.83rem;font-weight:700;animation:popIn .2s cubic-bezier(.22,1,.36,1)}
+@keyframes popIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
+.ing-tag button{background:none;border:none;cursor:pointer;color:var(--primary);font-size:1rem;line-height:1;padding:0}
+.ing-tag button:hover{color:#e74c3c}
+
+/* ══════ RESULTS PAGE ══════ */
+#page-results{
+  background:linear-gradient(160deg,#ddeeff 0%,#f0f8ff 40%,#e4f2ff 100%);
+  position:relative;overflow:hidden;min-height:100vh;
+}
+[data-theme="dark"] #page-results{background:linear-gradient(160deg,#060c1a 0%,#0a1228 50%,#050a14 100%)}
+
+.res-bg-anim{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.res-bubble{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(180,220,255,.5),rgba(26,111,212,.05));animation:floatBubble var(--dur,14s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+[data-theme="dark"] .res-bubble{background:radial-gradient(circle at 30% 30%,rgba(90,171,255,.15),rgba(26,80,180,.02))}
+#page-results::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(26,111,212,.04) 1.5px,transparent 1.5px);background-size:40px 40px}
+
+.res-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:60px 32px 80px}
+.res-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;gap:16px;flex-wrap:wrap}
+.res-header h2{font-size:2rem;font-weight:900;color:var(--text);margin-bottom:6px}
+[data-theme="dark"] .res-header h2{color:#fff}
+.res-sub{color:var(--muted);font-size:.9rem;font-weight:500;line-height:1.5}
+[data-theme="dark"] .res-sub{color:rgba(180,210,255,.7)}
+.res-content .rp-count{background:var(--primary-pale);color:var(--primary);border:1.5px solid var(--primary-light);font-size:.95rem;padding:7px 18px;border-radius:50px;font-weight:800;white-space:nowrap}
+[data-theme="dark"] .res-content .rp-count{background:rgba(90,171,255,.15);color:#9dcefd;border-color:rgba(90,171,255,.3)}
+.rp-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filter-chip{background:var(--card);border:1.5px solid var(--border);border-radius:50px;padding:5px 14px;font-size:.82rem;font-weight:700;cursor:pointer;transition:.2s;font-family:'Nunito',sans-serif}
+.filter-chip:hover,.filter-chip.active{background:var(--primary-pale);border-color:var(--primary);color:var(--primary)}
+[data-theme="dark"] .filter-chip{background:#131f32;color:#c8ddf5;border-color:#1e3358}
+[data-theme="dark"] .filter-chip:hover,[data-theme="dark"] .filter-chip.active{background:#0d2248;color:#fff;border-color:#5aabff}
+.rp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:28px}
+.rc{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;cursor:pointer;transition:.3s}
+.rc:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(26,111,212,.14);border-color:var(--primary-light)}
+.rc-body{padding:16px}
+.rc-body h4{font-size:1rem;font-weight:800;margin-bottom:6px}
+.rc-body p{font-size:.83rem;color:var(--muted);line-height:1.5;font-weight:500}
+.rc-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.badge{font-size:.73rem;font-weight:700;padding:4px 11px;border-radius:50px;font-family:'Nunito',sans-serif}
+.bg{background:var(--primary-pale);color:var(--primary)}
+.bw{background:var(--warm-light);color:#9a4e1a}
+.empty-hint{text-align:center;padding:36px 20px;color:var(--muted);font-weight:600;font-size:.95rem}
+[data-theme="dark"] .empty-hint{color:#a8c4e8}
+.rc-emoji-banner{height:140px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-shrink:0}
+.rc-emoji-banner .eb-circle{position:absolute;width:100px;height:100px;border-radius:50%;opacity:.18}
+.rc-emoji-banner .eb-icon{font-size:4rem;position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,.13));transition:transform .3s cubic-bezier(.34,1.56,.64,1);user-select:none}
+.rc:hover .eb-icon{transform:scale(1.22) rotate(-6deg)}
+.eb-man{background:linear-gradient(135deg,#fdf0e0,#fae3c6)}.eb-man .eb-circle{background:#e09b5a}
+.eb-chay{background:linear-gradient(135deg,#e3f0ff,#c8dfff)}.eb-chay .eb-circle{background:#3589e8}
+.eb-ngot{background:linear-gradient(135deg,#fff8e1,#fdecc8)}.eb-ngot .eb-circle{background:#f6b93b}
+.eb-uong{background:linear-gradient(135deg,#e0f0ff,#bbdefe)}.eb-uong .eb-circle{background:#2d88e8}
+.eb-vat{background:linear-gradient(135deg,#eef4ff,#d0e4ff)}.eb-vat .eb-circle{background:#5b9de8}
+.eb-sang{background:linear-gradient(135deg,#e8f2ff,#c5d8f8)}.eb-sang .eb-circle{background:#4a7fd4}
+
+/* ── DETAIL PAGE ── */
+#page-detail{
+  background:linear-gradient(160deg,#ddeeff 0%,#f0f8ff 40%,#e4f2ff 100%);
+  position:relative;overflow:hidden;
+}
+[data-theme="dark"] #page-detail{background:linear-gradient(160deg,#060d18 0%,#0a111e 50%,#060e1c 100%)}
+#page-detail::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(26,111,212,.04) 1.5px,transparent 1.5px);background-size:40px 40px}
+.detail-wrap{max-width:860px;margin:0 auto;padding:50px 24px 80px;position:relative;z-index:1}
+.detail-emoji-hero{border-radius:26px;overflow:hidden;margin-bottom:24px;height:280px;display:flex;align-items:center;justify-content:center;position:relative}
+.detail-emoji-hero .deh-circle{position:absolute;width:220px;height:220px;border-radius:50%;opacity:.2}
+.detail-emoji-hero .deh-icon{font-size:9rem;position:relative;z-index:1;filter:drop-shadow(0 8px 24px rgba(0,0,0,.18));animation:gentleBob 3s ease-in-out infinite}
+@keyframes gentleBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+.detail-emoji-hero .deh-title{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(5,15,40,.82));padding:28px 30px 22px;color:#fff}
+.detail-emoji-hero .deh-title h1{font-size:1.9rem;font-weight:900;margin-bottom:8px}
+.detail-section{background:var(--card);border-radius:22px;padding:28px;border:1.5px solid var(--border);margin-bottom:16px}
+[data-theme="dark"] .detail-section{background:rgba(19,31,50,.9)}
+.detail-section h3{font-size:1.1rem;font-weight:800;color:var(--primary);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.ing-list{display:flex;flex-wrap:wrap;gap:10px}
+.ing-pill{background:var(--primary-pale);border:1px solid var(--primary-light);border-radius:50px;padding:7px 16px;font-size:.88rem;font-weight:700;color:var(--primary)}
+.step-item{display:flex;gap:16px;margin-bottom:18px}
+.step-num{width:34px;height:34px;flex-shrink:0;background:linear-gradient(135deg,var(--primary),var(--primary-mid));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem}
+.step-text{flex:1;line-height:1.78;padding-top:5px;font-weight:500}
+[data-theme="dark"] .step-text{color:#c8ddf5}
+.nut-row{display:flex;gap:14px;flex-wrap:wrap}
+.nut-item{flex:1;min-width:90px;background:var(--cream);border-radius:16px;padding:18px;text-align:center;border:1px solid var(--border)}
+.nut-val{font-size:1.45rem;font-weight:900;color:var(--primary)}
+.nut-lbl{font-size:.76rem;color:var(--muted);margin-top:5px;font-weight:700}
+.tip-box{background:var(--warm-light);border:1.5px solid rgba(224,155,90,.35);border-radius:18px;padding:20px 24px}
+.tip-box h3{color:#9a4e1a}
+
+/* ══════ RESPONSIVE ══════ */
+@media(max-width:860px){
+  .season-strip{grid-template-columns:repeat(2,1fr)}
+  .ings-layout{padding:28px 14px 50px}
+}
+@media(max-width:640px){
+  header{padding:0 18px}
+  .feature-grid,.intro-img-row{grid-template-columns:1fr 1fr}
+  .intro-img-row img:last-child{display:none}
+  #page-home h1{font-size:2.8rem}
+  .detail-emoji-hero{height:220px}
+  .home-img-strip{height:140px}
+  .season-strip{grid-template-columns:1fr 1fr}
+  .ings-center h2{font-size:2rem}
+  .season-card{min-height:160px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="goTo('home')">🍃 Home Meal <b>Buddy</b></div>
+  <div class="nav-right">
+    <div class="nav-link" onclick="goTo('intro')">Giới thiệu</div>
+    <button class="theme-btn" onclick="toggleTheme()">🌓 Giao diện</button>
+  </div>
+</header>
+<button id="back-btn" onclick="goBack()">← Quay lại</button>
+
+<!-- HOME -->
+<section id="page-home" class="page active">
+  <div class="star-field" id="star-field"></div>
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="food-deco">🥩</div>
+  <div class="food-deco">🍳</div>
+  <div class="food-deco">🥦</div>
+  <div class="food-deco">🍜</div>
+  <div class="food-deco">🍗</div>
+  <div class="hero-inner">
+    <h1>Home<br>Meal <em>Buddy</em></h1>
+    <p class="sub">Mở tủ lạnh, thấy gì nấu đó — gợi ý tức thì hàng chục món ngon kèm công thức từng bước.</p>
+    <button class="btn-hero" onclick="goTo('ings')">🍳 Khám phá ngay</button>
+  </div>
+  <div class="home-img-strip">
+    <img class="strip-img" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=70" alt="">
+    <img class="strip-img" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=70" alt="">
+    <img class="strip-img" src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=400&q=70" alt="">
+    <img class="strip-img" src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=400&q=70" alt="">
+    <img class="strip-img" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=70" alt="">
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="page-intro" class="page">
+  <div class="ings-bg-anim page-anim-bg" aria-hidden="true">
+    <div class="ings-bubble" style="width:340px;height:340px;top:5%;left:8%;--dur:16s;--delay:0s;--tx:50px;--ty:-60px"></div>
+    <div class="ings-bubble" style="width:220px;height:220px;top:50%;right:6%;--dur:21s;--delay:-5s;--tx:-40px;--ty:-50px"></div>
+    <div class="ings-bubble" style="width:160px;height:160px;bottom:10%;left:30%;--dur:18s;--delay:-9s;--tx:30px;--ty:-30px"></div>
+    <div class="ings-particle" style="width:8px;height:8px;left:12%;--pdur:24s;--pdelay:0s"></div>
+    <div class="ings-particle" style="width:5px;height:5px;left:55%;--pdur:18s;--pdelay:-6s"></div>
+    <div class="ings-particle" style="width:7px;height:7px;left:80%;--pdur:21s;--pdelay:-9s"></div>
+  </div>
+  <div class="intro-wrap">
+    <div class="intro-hero-band">
+      <h2>Người Bạn Trong Bếp Việt 🍀</h2>
+      <p class="lead">Home Meal Buddy ra đời từ câu hỏi muôn thuở: <em>"Hôm nay ăn gì?"</em> Chúng tôi biến nguyên liệu bạn có thành những bữa ăn ngon lành với công thức nấu chi tiết — hoàn toàn miễn phí, không cần đăng nhập.</p>
+    </div>
+    <div class="intro-img-row">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80" alt="">
+      <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&q=80" alt="">
+    </div>
+    <div class="feature-grid">
+      <div class="feat-card"><div class="feat-icon">⚡</div><h4>Tức thì, không chờ</h4><p>Nhập nguyên liệu, bấm tìm là thấy kết quả ngay lập tức.</p></div>
+      <div class="feat-card"><div class="feat-icon">🍽️</div><h4>300+ Công thức</h4><p>Kho dữ liệu phong phú: món mặn, healthy, chay, tráng miệng, đồ uống.</p></div>
+      <div class="feat-card"><div class="feat-icon">♻️</div><h4>Chống lãng phí</h4><p>Tận dụng nguyên liệu sẵn có, không để đồ trong tủ lạnh bị hỏng.</p></div>
+      <div class="feat-card"><div class="feat-icon">📋</div><h4>Hướng dẫn từng bước</h4><p>Mỗi công thức đều có bước nấu chi tiết và mẹo nấu ăn.</p></div>
+    </div>
+    <div class="intro-quote">"Đừng để nguyên liệu trong tủ lạnh bị lãng phí. Hãy để Home Meal Buddy cùng bạn tạo nên cảm hứng!"</div>
+  </div>
+</section>
+
+<!-- INPUT PAGE — FRIDGE + SEASON STRIP -->
+<section id="page-ings" class="page">
+  <div class="ings-bg-anim" aria-hidden="true">
+    <div class="ings-bubble" style="width:340px;height:340px;top:5%;left:8%;--dur:16s;--delay:0s;--tx:50px;--ty:-60px"></div>
+    <div class="ings-bubble" style="width:220px;height:220px;top:50%;left:2%;--dur:21s;--delay:-5s;--tx:40px;--ty:50px"></div>
+    <div class="ings-bubble" style="width:280px;height:280px;top:15%;right:6%;--dur:18s;--delay:-8s;--tx:-60px;--ty:-40px"></div>
+    <div class="ings-bubble" style="width:180px;height:180px;top:65%;right:10%;--dur:14s;--delay:-3s;--tx:-30px;--ty:60px"></div>
+    <div class="ings-bubble" style="width:120px;height:120px;top:80%;left:40%;--dur:24s;--delay:-12s;--tx:20px;--ty:-30px"></div>
+    <div class="ings-particle" style="width:8px;height:8px;left:12%;--pdur:24s;--pdelay:0s"></div>
+    <div class="ings-particle" style="width:5px;height:5px;left:28%;--pdur:18s;--pdelay:-6s"></div>
+    <div class="ings-particle" style="width:10px;height:10px;left:55%;--pdur:21s;--pdelay:-9s"></div>
+    <div class="ings-particle" style="width:6px;height:6px;left:72%;--pdur:16s;--pdelay:-3s"></div>
+    <div class="ings-particle" style="width:8px;height:8px;left:88%;--pdur:28s;--pdelay:-14s"></div>
+  </div>
+
+  <div class="ings-layout">
+
+    <!-- CENTER: Title + Fridge -->
+    <div class="ings-center">
+      <h2>TỦ LẠNH BẠN CÓ GÌ?</h2>
+      <p class="sub">Mở tủ lạnh, thêm nguyên liệu và khám phá ngay hàng chục món ngon!</p>
+
+      <div class="fridge-scene">
+        <div class="fridge-body" id="fridge-body">
+          <div class="fridge-main" id="fridge-main">
+            <!-- INNER -->
+            <div class="fridge-inner" id="fridge-inner">
+              <div class="fridge-led"></div>
+              <div class="fridge-inner-panel">
+                <div class="inner-tag-row" id="tag-row">
+                  <span class="empty-label">Chưa có nguyên liệu nào...</span>
+                </div>
+                <div id="clear-all-wrap" style="display:none">
+                  <button class="clear-all-btn" onclick="clearAllIngs()">🗑 Xóa tất cả</button>
+                </div>
+                <div class="inner-input-row">
+                  <input id="ing-input" type="text" placeholder="VD: trứng, thịt heo, cà chua..." onkeydown="if(event.key==='Enter')addIng()">
+                  <button class="inner-add-btn" onclick="addIng()">+</button>
+                </div>
+                <div class="inner-sug-section">
+                  <p>Gợi ý nhanh</p>
+                  <div class="inner-sug-chips">
+                    <span class="inner-sug-chip" onclick="qs('Trứng')">🥚 Trứng</span>
+                    <span class="inner-sug-chip" onclick="qs('Thịt heo')">🐷 Thịt heo</span>
+                    <span class="inner-sug-chip" onclick="qs('Gà')">🍗 Gà</span>
+                    <span class="inner-sug-chip" onclick="qs('Thịt bò')">🥩 Thịt bò</span>
+                    <span class="inner-sug-chip" onclick="qs('Tôm')">🦐 Tôm</span>
+                    <span class="inner-sug-chip" onclick="qs('Cá')">🐟 Cá</span>
+                    <span class="inner-sug-chip" onclick="qs('Mực')">🦑 Mực</span>
+                    <span class="inner-sug-chip" onclick="qs('Đậu phụ')">🟨 Đậu phụ</span>
+                    <span class="inner-sug-chip" onclick="qs('Khoai tây')">🥔 Khoai tây</span>
+                    <span class="inner-sug-chip" onclick="qs('Cà chua')">🍅 Cà chua</span>
+                    <span class="inner-sug-chip" onclick="qs('Rau cải')">🥬 Rau cải</span>
+                    <span class="inner-sug-chip" onclick="qs('Nấm')">🍄 Nấm</span>
+                    <span class="inner-sug-chip" onclick="qs('Ngô')">🌽 Ngô</span>
+                    <span class="inner-sug-chip" onclick="qs('Bơ')">🥑 Bơ</span>
+                    <span class="inner-sug-chip" onclick="qs('Chuối')">🍌 Chuối</span>
+                    <span class="inner-sug-chip" onclick="qs('Dâu tây')">🍓 Dâu tây</span>
+                    <span class="inner-sug-chip" onclick="qs('Sữa chua')">🥛 Sữa chua</span>
+                    <span class="inner-sug-chip" onclick="qs('Thịt bằm')">🥩 Thịt bằm</span>
+                    <span class="inner-sug-chip" onclick="qs('Hành tây')">🧅 Hành tây</span>
+                    <span class="inner-sug-chip" onclick="qs('Cà phê')">☕ Cà phê</span>
+                  </div>
+                </div>
+                <button class="find-btn-inner" id="find-btn" onclick="findDishes()" disabled>🔍 Tìm món ăn ngay</button>
+              </div>
+            </div>
+            <!-- DOOR -->
+            <div class="fridge-door-wrap" id="fridge-door">
+              <div class="fridge-door-front" id="fridge-door-front" onclick="openFridge()">
+                <div class="fridge-handle-main"></div>
+                <div class="open-hint">
+                  <span class="hint-icon">🧊</span>
+                  <span>Mở tủ lạnh</span>
+                  <span class="hint-sub">nhấn để mở</span>
+                </div>
+              </div>
+            </div>
+            <button class="fridge-close-btn" id="close-btn" onclick="closeFridge()">✕</button>
+          </div>
+        </div>
+        <div class="fridge-feet">
+          <div class="fridge-foot"></div>
+          <div class="fridge-foot"></div>
+          <div class="fridge-foot" style="transform:translateX(-30px)"></div>
+          <div class="fridge-foot" style="transform:translateX(30px)"></div>
+        </div>
+        <div class="fridge-tag-label" id="fridge-status">
+          <div class="fridge-status-dot"></div>
+          <span>Đang giữ lạnh • Sẵn sàng nấu nướng!</span>
+        </div>
+      </div>
+    </div><!-- end .ings-center -->
+
+    <!-- SEASON STRIP: below center fridge -->
+    <div class="season-strip-wrap">
+      <div class="season-strip">
+        <!-- Spring -->
+        <button class="season-card sc-spring" onclick="browseByMode('spring')">
+          <canvas class="season-card-canvas" id="canvas-spring"></canvas>
+          <div class="season-card-content">
+            <div class="sc-label">Mùa Xuân</div>
+            <div class="sc-title">🌸 Tươi mát, nhẹ nhàng</div>
+            <div class="sc-body">Canh chua, gỏi tươi, đồ uống thanh mát — mùa xuân ấm áp.</div>
+            <div class="sc-arrow">→</div>
+          </div>
+        </button>
+        <!-- Summer -->
+        <button class="season-card sc-summer" onclick="browseByMode('summer')">
+          <canvas class="season-card-canvas" id="canvas-summer"></canvas>
+          <div class="season-card-content">
+            <div class="sc-label">Mùa Hạ</div>
+            <div class="sc-title">☀️ Giải nhiệt, mát lành</div>
+            <div class="sc-body">Sinh tố, chè mát, nước ép — hạ oi bức cần giải nhiệt!</div>
+            <div class="sc-arrow">→</div>
+          </div>
+        </button>
+        <!-- Autumn -->
+        <button class="season-card sc-autumn" onclick="browseByMode('autumn')">
+          <canvas class="season-card-canvas" id="canvas-autumn"></canvas>
+          <div class="season-card-content">
+            <div class="sc-label">Mùa Thu</div>
+            <div class="sc-title">🍂 Ấm bụng, đậm vị</div>
+            <div class="sc-body">Canh nóng, cháo bổ dưỡng, trà ấm — thu về mang hơi ấm.</div>
+            <div class="sc-arrow">→</div>
+          </div>
+        </button>
+        <!-- Winter -->
+        <button class="season-card sc-winter" onclick="browseByMode('winter')">
+          <canvas class="season-card-canvas" id="canvas-winter"></canvas>
+          <div class="season-card-content">
+            <div class="sc-label">Mùa Đông</div>
+            <div class="sc-title">❄️ Nóng hổi, đủ chất</div>
+            <div class="sc-body">Hot chocolate, lẩu, súp nóng — mùa đông lạnh cần ấm trong người!</div>
+            <div class="sc-arrow">→</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESULTS PAGE -->
+<section id="page-results" class="page">
+  <div class="res-bg-anim" aria-hidden="true">
+    <div class="res-bubble" style="width:380px;height:380px;top:0%;left:-5%;--dur:18s;--delay:0s;--tx:60px;--ty:-50px"></div>
+    <div class="res-bubble" style="width:260px;height:260px;bottom:10%;right:-5%;--dur:22s;--delay:-7s;--tx:-50px;--ty:60px"></div>
+    <div class="res-bubble" style="width:200px;height:200px;top:40%;left:45%;--dur:16s;--delay:-4s;--tx:40px;--ty:-40px"></div>
+    <div class="ings-particle" style="width:8px;height:8px;left:15%;--pdur:22s;--pdelay:0s"></div>
+    <div class="ings-particle" style="width:5px;height:5px;left:60%;--pdur:18s;--pdelay:-5s"></div>
+    <div class="ings-particle" style="width:9px;height:9px;left:85%;--pdur:25s;--pdelay:-10s"></div>
+  </div>
+  <div class="res-content">
+    <div class="res-header">
+      <div>
+        <h2 id="res-title">🍽️ Món có thể nấu</h2>
+        <p class="res-sub" id="res-sub-text"></p>
+      </div>
+      <span class="rp-count" id="rp-count" style="align-self:center;font-size:1rem">0 món</span>
+    </div>
+    <div class="rp-filter" id="rp-filter"></div>
+    <div class="rp-grid" id="rp-grid"></div>
+  </div>
+</section>
+
+<!-- DETAIL PAGE -->
+<section id="page-detail" class="page">
+  <div class="detail-wrap" id="detail-wrap"></div>
+</section>
+
+<script>
+// ── STAR FIELD ──
+(function(){
+  const sf=document.getElementById('star-field');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=Math.random()*3+1;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--dl:${Math.random()*4}s;--o1:${.05+Math.random()*.15};--o2:${.3+Math.random()*.5}`;
+    sf.appendChild(s);
+  }
+})();
+
+// ══════════════════════════════════════════════
+// SEASON CANVAS ANIMATIONS
+// ══════════════════════════════════════════════
+function initSeasonCanvases(){
+  (function springCanvas(){
+    const c=document.getElementById('canvas-spring');
+    if(!c)return;
+    const ctx=c.getContext('2d');
+    let petals=[];
+    function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight;}
+    resize();
+    window.addEventListener('resize',resize);
+    for(let i=0;i<30;i++){
+      petals.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*4+2,vx:(Math.random()-.5)*.8,vy:Math.random()*1.2+.4,a:Math.random()*Math.PI*2,va:(Math.random()-.5)*.05,op:Math.random()*.6+.3,hue:Math.random()*20+340});
+    }
+    function draw(){
+      ctx.clearRect(0,0,c.width,c.height);
+      const g=ctx.createLinearGradient(0,0,c.width,c.height);
+      g.addColorStop(0,'#ffb7c5');g.addColorStop(.5,'#ff8fab');g.addColorStop(1,'#e0607e');
+      ctx.fillStyle=g;ctx.fillRect(0,0,c.width,c.height);
+      petals.forEach(p=>{
+        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.a);
+        ctx.globalAlpha=p.op;
+        ctx.beginPath();
+        ctx.ellipse(0,0,p.r,p.r*1.6,0,0,Math.PI*2);
+        ctx.fillStyle=`hsla(${p.hue},80%,90%,1)`;ctx.fill();
+        ctx.restore();
+        p.x+=p.vx;p.y+=p.vy;p.a+=p.va;
+        if(p.y>c.height+10){p.y=-10;p.x=Math.random()*c.width;}
+        if(p.x<-10)p.x=c.width+10;if(p.x>c.width+10)p.x=-10;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  (function summerCanvas(){
+    const c=document.getElementById('canvas-summer');
+    if(!c)return;
+    const ctx=c.getContext('2d');
+    let t=0;
+    function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight;}
+    resize();window.addEventListener('resize',resize);
+    function draw(){
+      ctx.clearRect(0,0,c.width,c.height);
+      const g=ctx.createLinearGradient(0,0,c.width,c.height);
+      g.addColorStop(0,'#ffcc02');g.addColorStop(.5,'#ff9a00');g.addColorStop(1,'#ff5400');
+      ctx.fillStyle=g;ctx.fillRect(0,0,c.width,c.height);
+      const sx=c.width*.65,sy=c.height*.3,sr=28;
+      const numRays=12;
+      for(let i=0;i<numRays;i++){
+        const angle=(i/numRays)*Math.PI*2+t*.4;
+        const r1=sr+10,r2=sr+22+Math.sin(t*2+i)*6;
+        ctx.beginPath();
+        ctx.moveTo(sx+Math.cos(angle)*r1,sy+Math.sin(angle)*r1);
+        ctx.lineTo(sx+Math.cos(angle)*r2,sy+Math.sin(angle)*r2);
+        ctx.strokeStyle='rgba(255,255,180,.7)';ctx.lineWidth=3;
+        ctx.lineCap='round';ctx.stroke();
+      }
+      const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,sr);
+      sg.addColorStop(0,'#fff9c4');sg.addColorStop(.6,'#ffe066');sg.addColorStop(1,'#ffcc00');
+      ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);
+      ctx.fillStyle=sg;ctx.fill();
+      for(let i=0;i<5;i++){
+        const cx=((i*c.width*.22+t*18)%(c.width+60))-20;
+        const cy=c.height*.55+Math.sin(t+i)*6;
+        ctx.beginPath();ctx.arc(cx,cy,8+i*2,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,255,220,.18)';ctx.fill();
+      }
+      t+=.012;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  (function autumnCanvas(){
+    const c=document.getElementById('canvas-autumn');
+    if(!c)return;
+    const ctx=c.getContext('2d');
+    let leaves=[];
+    function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight;}
+    resize();window.addEventListener('resize',resize);
+    const leafColors=['#e8772e','#d4522a','#f0a500','#c84b27','#e0602a','#f5c518'];
+    for(let i=0;i<24;i++){
+      leaves.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*7+4,vx:(Math.random()-.5)*.6,vy:Math.random()*.8+.4,a:Math.random()*Math.PI*2,va:(Math.random()-.5)*.04,col:leafColors[Math.floor(Math.random()*leafColors.length)],op:Math.random()*.5+.4});
+    }
+    function drawLeaf(ctx,x,y,r,a,col,op){
+      ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.globalAlpha=op;
+      ctx.beginPath();
+      ctx.moveTo(0,-r);ctx.bezierCurveTo(r,-r,r,0,0,r*.6);ctx.bezierCurveTo(-r,0,-r,-r,0,-r);
+      ctx.fillStyle=col;ctx.fill();
+      ctx.beginPath();ctx.moveTo(0,r*.6);ctx.lineTo(0,r*1.2);
+      ctx.strokeStyle=col;ctx.lineWidth=1.2;ctx.stroke();
+      ctx.restore();
+    }
+    function draw(){
+      ctx.clearRect(0,0,c.width,c.height);
+      const g=ctx.createLinearGradient(0,0,c.width,c.height);
+      g.addColorStop(0,'#b8460b');g.addColorStop(.5,'#d4652a');g.addColorStop(1,'#a33210');
+      ctx.fillStyle=g;ctx.fillRect(0,0,c.width,c.height);
+      leaves.forEach(l=>{
+        drawLeaf(ctx,l.x,l.y,l.r,l.a,l.col,l.op);
+        l.x+=l.vx;l.y+=l.vy;l.a+=l.va;
+        if(l.y>c.height+12){l.y=-12;l.x=Math.random()*c.width;}
+        if(l.x<-12)l.x=c.width+12;if(l.x>c.width+12)l.x=-12;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  (function winterCanvas(){
+    const c=document.getElementById('canvas-winter');
+    if(!c)return;
+    const ctx=c.getContext('2d');
+    let flakes=[];
+    function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight;}
+    resize();window.addEventListener('resize',resize);
+    for(let i=0;i<40;i++){
+      flakes.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*4+1.5,vx:(Math.random()-.5)*.4,vy:Math.random()*.6+.3,op:Math.random()*.5+.3,spin:Math.random()*Math.PI*2,spinSpeed:(Math.random()-.5)*.02});
+    }
+    function drawSnowflake(ctx,x,y,r,spin,op){
+      ctx.save();ctx.translate(x,y);ctx.rotate(spin);ctx.globalAlpha=op;
+      ctx.strokeStyle='rgba(220,240,255,1)';ctx.lineWidth=1.2;
+      for(let i=0;i<6;i++){
+        ctx.rotate(Math.PI/3);
+        ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,r);
+        ctx.moveTo(0,r*.4);ctx.lineTo(r*.28,r*.64);
+        ctx.moveTo(0,r*.4);ctx.lineTo(-r*.28,r*.64);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    function draw(){
+      ctx.clearRect(0,0,c.width,c.height);
+      const g=ctx.createLinearGradient(0,0,c.width,c.height);
+      g.addColorStop(0,'#1a3a6a');g.addColorStop(.5,'#0a2248');g.addColorStop(1,'#061630');
+      ctx.fillStyle=g;ctx.fillRect(0,0,c.width,c.height);
+      flakes.forEach(f=>{
+        drawSnowflake(ctx,f.x,f.y,f.r,f.spin,f.op);
+        f.x+=f.vx;f.y+=f.vy;f.spin+=f.spinSpeed;
+        if(f.y>c.height+10){f.y=-10;f.x=Math.random()*c.width;}
+        if(f.x<-10)f.x=c.width+10;if(f.x>c.width+10)f.x=-10;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+}
+
+// ── FRIDGE ──
+let fridgeOpen=false;
+function openFridge(){
+  if(fridgeOpen)return;fridgeOpen=true;
+  document.getElementById('fridge-door').classList.add('is-open');
+  document.getElementById('fridge-body').style.boxShadow='6px 8px 0 0 rgba(26,111,212,.08),0 24px 70px rgba(26,111,212,.28),0 0 60px rgba(168,216,255,.35),inset 2px 2px 0 rgba(255,255,255,.85),inset -2px -2px 0 rgba(0,0,0,.05)';
+  document.getElementById('close-btn').style.display='flex';
+  document.getElementById('fridge-status').innerHTML='<div class="fridge-status-dot" style="background:#f59e0b;box-shadow:0 0 6px rgba(245,158,11,.5)"></div><span>Đang mở • Thêm nguyên liệu nhé!</span>';
+  setTimeout(()=>{const inp=document.getElementById('ing-input');if(inp)inp.focus()},750);
+}
+function closeFridge(){
+  if(!fridgeOpen)return;fridgeOpen=false;
+  document.getElementById('fridge-door').classList.remove('is-open');
+  document.getElementById('fridge-body').style.boxShadow='';
+  document.getElementById('close-btn').style.display='none';
+  document.getElementById('fridge-status').innerHTML='<div class="fridge-status-dot"></div><span>Đang giữ lạnh • Sẵn sàng</span>';
+}
+
+// ══ DATABASE ══
+const DB = [
+{name:"Trứng luộc",emoji:"🥚",catcls:"eb-man",keys:["trứng"],cat:"Mặn",time:"10 phút",cal:155,diff:"Dễ",desc:"Món đơn giản nhưng bổ dưỡng, phù hợp mọi bữa.",ings:["3 quả trứng","nước","muối"],steps:["Cho trứng vào nồi, đổ nước ngập trứng, thêm 1 thìa muối.","Đun sôi ở lửa vừa. Khi sôi, vặn lửa nhỏ.","Trứng lòng đào: luộc 6-7 phút. Trứng chín hoàn toàn: 10-12 phút.","Vớt ra ngâm ngay vào nước lạnh 2 phút để dễ bóc.","Bóc vỏ và thưởng thức."],tip:"Ngâm nước lạnh sau khi luộc giúp bóc vỏ dễ hơn và tránh lòng đỏ bị xanh."},
+{name:"Trứng ốp la",emoji:"🍳",catcls:"eb-man",keys:["trứng"],cat:"Mặn",time:"5 phút",cal:185,diff:"Dễ",desc:"Trứng chiên mặt, lòng đỏ béo mềm ăn với cơm hay bánh mì đều ngon.",ings:["2 quả trứng","1 thìa dầu ăn","muối","tiêu"],steps:["Làm nóng chảo ở lửa vừa, cho dầu vào.","Đập trứng nhẹ nhàng vào chảo, tránh vỡ lòng đỏ.","Rắc chút muối và tiêu lên trên.","Chiên 2-3 phút đến khi lòng trắng chín, lòng đỏ vẫn mềm.","Gắp ra đĩa, ăn nóng với cơm hoặc bánh mì."],tip:"Dùng lửa vừa-nhỏ để lòng trắng chín đều mà lòng đỏ không bị cứng."},
+{name:"Trứng chiên hành lá",emoji:"🧅",catcls:"eb-man",keys:["trứng"],cat:"Mặn",time:"8 phút",cal:210,diff:"Dễ",desc:"Trứng chiên thơm hành, vàng đẹp và đậm đà.",ings:["3 quả trứng","2 nhánh hành lá","muối","tiêu","dầu ăn"],steps:["Đập trứng vào bát, thêm muối tiêu, đánh đều.","Hành lá rửa sạch, thái nhỏ, cho vào hỗn hợp trứng.","Làm nóng chảo với dầu ở lửa vừa.","Đổ hỗn hợp trứng vào, để yên 1-2 phút đến khi mặt dưới chín vàng.","Lật mặt hoặc gấp lại, chiên thêm 1 phút. Gắp ra ăn nóng."],tip:"Không khuấy nhiều sẽ tạo thành miếng to đẹp hơn."},
+{name:"Trứng bác cà chua",emoji:"🍅",catcls:"eb-man",keys:["trứng","cà chua"],cat:"Mặn",time:"12 phút",cal:200,diff:"Dễ",desc:"Món xào nhà dân dã, vị chua ngọt hài hòa.",ings:["3 quả trứng","2 quả cà chua","hành lá","muối","đường","dầu ăn"],steps:["Đánh trứng, chiên tới chín rồi xúc ra để riêng.","Cà chua bổ múi cau, phi hành thơm rồi xào cà chua.","Nêm muối, đường, đảo đều đến khi cà chua mềm ra nước.","Cho trứng vào, đảo nhẹ tay 1-2 phút cho quyện.","Rắc hành lá, nêm lại cho vừa ăn, trút ra đĩa."],tip:"Chiên trứng trước rồi mới xào cà chua giúp trứng không bị nát."},
+{name:"Trứng kho tiêu",emoji:"🌶️",catcls:"eb-man",keys:["trứng"],cat:"Mặn",time:"20 phút",cal:240,diff:"Dễ",desc:"Trứng kho nước màu đậm đà, vị mặn ngọt, ăn với cơm rất đưa.",ings:["4 quả trứng","2 thìa nước mắm","1 thìa đường","tiêu hạt","hành tím","nước màu"],steps:["Luộc trứng chín, bóc vỏ. Dùng đầu dao khứa nhẹ bề mặt cho ngấm gia vị.","Phi hành tím vàng thơm với chút dầu.","Cho nước mắm, đường, nước màu vào, đun sôi tạo nước kho.","Cho trứng vào, kho lửa nhỏ 10-15 phút, thỉnh thoảng lật đều.","Thêm tiêu hạt giã dập, kho thêm 5 phút đến khi nước sánh."],tip:"Khứa bề mặt trứng giúp gia vị thấm sâu hơn và trứng đẹp màu hơn."},
+{name:"Bánh flan trứng",emoji:"🍮",catcls:"eb-ngot",keys:["trứng","sữa"],cat:"Ngọt",time:"50 phút",cal:280,diff:"Trung bình",desc:"Bánh flan mềm mịn, thơm vani, phủ lớp caramel vàng óng.",ings:["3 quả trứng","300ml sữa tươi","50g đường","1/2 thìa vani","50g đường làm caramel"],steps:["Làm caramel: đun 50g đường với 2 thìa nước đến vàng nâu, đổ vào khuôn.","Đánh nhẹ trứng với đường, không tạo bọt.","Đun sữa ấm khoảng 60°C, từ từ đổ vào trứng vừa khuấy.","Thêm vani, lọc qua rây, đổ vào khuôn đã có caramel.","Hấp cách thủy 35-40 phút ở lửa nhỏ. Để nguội, lật ngược ra đĩa."],tip:"Đừng đánh trứng quá mạnh — bọt khí sẽ làm bánh bị rỗ mặt."},
+{name:"Thịt heo luộc",emoji:"🍽️",catcls:"eb-man",keys:["thịt heo","thịt lợn"],cat:"Mặn",time:"30 phút",cal:280,diff:"Dễ",desc:"Thịt luộc chín mềm, chấm mắm tỏi ớt đặc trưng miền Trung.",ings:["400g thịt ba chỉ hoặc nạc vai","hành tím","gừng","muối","nước mắm","tỏi","ớt","chanh"],steps:["Rửa thịt, cho vào nồi nước lạnh cùng hành tím và gừng đập dập.","Đun sôi, hớt bọt kỹ, vặn lửa nhỏ.","Luộc 25-30 phút đến khi dùng đũa xiên qua không ra nước hồng.","Vớt ra, để nguội bớt rồi thái lát mỏng.","Pha nước chấm: nước mắm, chanh, đường, tỏi ớt băm."],tip:"Cho thịt vào nước lạnh đun cùng để thịt chín từ từ, ngọt hơn."},
+{name:"Thịt kho tàu",emoji:"🥥",catcls:"eb-man",keys:["thịt heo","thịt lợn","trứng"],cat:"Mặn",time:"60 phút",cal:480,diff:"Trung bình",desc:"Thịt kho nước dừa đậm đà, trứng ngấm màu vàng óng — đặc sản ngày Tết.",ings:["500g thịt ba chỉ","4 quả trứng","1 trái dừa tươi","3 thìa nước mắm","2 thìa đường","hành tím","nước màu"],steps:["Thịt cắt khối vuông 4x4cm, trứng luộc chín bóc vỏ.","Phi hành tím vàng, cho thịt vào xào săn 5 phút.","Thêm nước mắm, đường, nước màu, đảo đều cho thịt lên màu.","Đổ nước dừa tươi vào ngập thịt, đun sôi rồi hạ lửa nhỏ.","Kho 40-50 phút, cho trứng vào kho cùng 15 phút cuối."],tip:"Kho lửa liu riu để thịt mềm tan mà không bị khô."},
+{name:"Sườn nướng mật ong",emoji:"🍖",catcls:"eb-man",keys:["thịt heo","thịt lợn"],cat:"Mặn",time:"45 phút",cal:450,diff:"Trung bình",desc:"Sườn nướng mật ong thơm lừng, bóng đẹp và ngọt dịu.",ings:["500g sườn non","3 thìa mật ong","2 thìa nước tương","1 thìa tỏi băm","1 thìa gừng băm","tiêu"],steps:["Sườn rửa sạch, chần qua nước sôi 2 phút rồi vớt ra để ráo.","Pha nước ướp: mật ong, nước tương, tỏi, gừng, tiêu, trộn đều.","Ướp sườn ít nhất 30 phút (tốt nhất 2-4 tiếng trong tủ lạnh).","Nướng ở 200°C trong 20 phút, lật mặt và nướng thêm 15 phút.","Phết lớp ướp lên mặt sườn, nướng thêm 5 phút đến khi bóng đẹp."],tip:"Chần sườn trước giúp loại bỏ mùi hôi và tạp chất."},
+{name:"Gà luộc lá chanh",emoji:"🍗",catcls:"eb-man",keys:["gà"],cat:"Mặn",time:"35 phút",cal:290,diff:"Dễ",desc:"Gà luộc thơm lá chanh, chấm muối tiêu chanh truyền thống.",ings:["1/2 con gà","lá chanh","gừng","sả","muối","tiêu xanh","chanh"],steps:["Rửa gà, nhồi gừng đập dập và sả vào bên trong.","Cho gà vào nồi nước lạnh, thêm muối, đun sôi hớt bọt.","Hạ lửa nhỏ, luộc 25-30 phút đến khi dùng đũa xiên vào đùi không ra nước hồng.","Tắt bếp, ngâm gà trong nồi thêm 10 phút.","Thái lát, rải lá chanh thái sợi. Pha muối tiêu chanh để chấm."],tip:"Đừng đun sôi quá mạnh — gà sẽ bị chai và khô."},
+{name:"Gà chiên nước mắm",emoji:"🧄",catcls:"eb-man",keys:["gà"],cat:"Mặn",time:"30 phút",cal:380,diff:"Dễ",desc:"Gà chiên vàng giòn, phủ nước mắm tỏi sả thơm lừng.",ings:["500g gà (đùi/cánh)","3 thìa nước mắm","1 thìa đường","3 tép tỏi","1 cây sả","ớt","dầu chiên"],steps:["Gà rửa sạch, khứa vài đường, ướp nước mắm, đường, tỏi sả băm 20 phút.","Chiên gà ngập dầu 170°C khoảng 8-10 phút đến vàng đều.","Vớt ra để ráo. Phi tỏi sả ớt thơm trong 2 thìa dầu còn lại.","Cho gà vào, đảo đều với hỗn hợp tỏi sả.","Thêm 1 thìa nước mắm, đảo nhanh 1-2 phút cho bám đều."],tip:"Khứa da gà giúp gia vị thấm và da chiên giòn hơn."},
+{name:"Phở gà",emoji:"🍜",catcls:"eb-man",keys:["gà"],cat:"Mặn",time:"60 phút",cal:380,diff:"Trung bình",desc:"Phở gà nước dùng trong ngọt tự nhiên, thơm hoa hồi và quế.",ings:["1/2 con gà","300g bánh phở","hành tây","gừng","hoa hồi","quế","muối","nước mắm","hành lá","giá đỗ","chanh","ớt"],steps:["Nướng hành tây và gừng trên bếp đến thơm, rửa sơ.","Hầm gà với hành tây, gừng, hoa hồi, quế trong 40 phút.","Vớt gà, lọc nước dùng cho trong, nêm nước mắm muối.","Xé thịt gà. Trụng bánh phở qua nước sôi.","Cho phở vào tô, bày thịt gà, chan nước dùng nóng."],tip:"Nướng gừng và hành làm nước dùng thơm đặc biệt hơn."},
+{name:"Cháo gà gừng",emoji:"🫚",catcls:"eb-man",keys:["gà"],cat:"Mặn",time:"45 phút",cal:260,diff:"Dễ",desc:"Cháo gà bổ dưỡng thơm gừng, ăn khi ốm hay trời lạnh đều tuyệt.",ings:["300g gà","100g gạo","gừng tươi","hành lá","muối","nước mắm","tiêu"],steps:["Luộc gà với gừng đập dập đến chín, vớt ra để nguội.","Lọc lấy nước luộc gà làm nước dùng.","Xé thịt gà, cho gạo vào nước dùng đun sôi.","Đun khoảng 25-30 phút đến khi gạo nở bung, khuấy đều.","Cho thịt gà vào, nêm nước mắm muối. Múc ra tô, rắc hành lá, tiêu, gừng sợi."],tip:"Dùng gạo cũ đã vo ráo để cháo đặc ngon hơn."},
+{name:"Bò xào hành tây",emoji:"🧅",catcls:"eb-man",keys:["thịt bò","bò","hành tây"],cat:"Mặn",time:"20 phút",cal:380,diff:"Dễ",desc:"Bò tái xào hành tây giòn ngọt, nhanh gọn đậm đà.",ings:["300g thịt bò","1 củ hành tây","3 tép tỏi","2 thìa nước tương","1 thìa dầu hào","tiêu","dầu ăn"],steps:["Bò thái mỏng ngang thớ, ướp nước tương, dầu hào, tiêu 10 phút.","Hành tây thái múi, tỏi băm nhỏ.","Làm nóng chảo lửa lớn đến khói, cho dầu vào.","Xào bò nhanh 1-2 phút đến khi thay màu, xúc ra để riêng.","Xào tỏi thơm, cho hành vào xào giòn. Cho bò vào đảo đều 30 giây."],tip:"Lửa phải thật lớn và xào nhanh tay để bò mềm không bị dai."},
+{name:"Phở bò",emoji:"🐮",catcls:"eb-man",keys:["thịt bò","bò"],cat:"Mặn",time:"120 phút",cal:450,diff:"Khó",desc:"Phở bò Hà Nội cổ điển, nước dùng trong ngọt đặc trưng.",ings:["xương bò 1kg","200g thịt bò tái","bánh phở","hành tây","gừng","hoa hồi","thảo quả","quế","muối","nước mắm"],steps:["Chần xương bò qua nước sôi, rửa sạch.","Nướng hành tây và gừng trên bếp đến thơm.","Hầm xương với hành, gừng, các gia vị thơm 3-4 tiếng, hớt bọt thường xuyên.","Lọc nước dùng, nêm nước mắm muối cho vừa.","Trụng phở, bày bò tái thái mỏng, chan nước dùng sôi."],tip:"Nước dùng ngon cần hầm ít nhất 3-4 tiếng với lửa nhỏ."},
+{name:"Tôm rang muối sả",emoji:"🦐",catcls:"eb-man",keys:["tôm"],cat:"Mặn",time:"20 phút",cal:220,diff:"Dễ",desc:"Tôm rang muối sả giòn ngon, thơm lừng, ăn được cả vỏ.",ings:["400g tôm","3 cây sả","3 tép tỏi","2 quả ớt","muối","tiêu","dầu ăn"],steps:["Tôm rửa sạch, để ráo (có thể để nguyên vỏ).","Sả đập dập thái nhỏ, tỏi và ớt băm.","Làm nóng chảo lửa lớn, cho dầu vào.","Phi sả tỏi thơm, cho tôm vào rang lửa lớn.","Rắc muối tiêu, đảo liên tục 3-4 phút đến tôm chín đỏ giòn."],tip:"Để tôm thật ráo nước trước khi rang để rang giòn hơn."},
+{name:"Tôm sốt tỏi bơ",emoji:"🧈",catcls:"eb-man",keys:["tôm"],cat:"Mặn",time:"15 phút",cal:280,diff:"Dễ",desc:"Tôm xào bơ tỏi thơm béo kiểu Western đơn giản mà sang.",ings:["300g tôm","30g bơ","4 tép tỏi","1 thìa nước tương","muối","tiêu","hành lá"],steps:["Tôm bóc vỏ, bỏ chỉ, ướp muối tiêu.","Làm nóng chảo lửa vừa, cho bơ vào đến khi tan chảy.","Phi tỏi thái lát trong bơ đến vàng thơm.","Cho tôm vào xào 2-3 phút đến khi chín hồng đều.","Thêm nước tương, đảo đều. Rắc hành lá."],tip:"Dùng bơ lạt (unsalted) để kiểm soát độ mặn."},
+{name:"Cá kho tộ",emoji:"🐟",catcls:"eb-man",keys:["cá"],cat:"Mặn",time:"30 phút",cal:310,diff:"Dễ",desc:"Cá kho nước màu chuẩn miền Nam, đậm đà ăn với cơm trắng.",ings:["400g cá (cá thu, cá trê, cá lóc)","3 thìa nước mắm","2 thìa đường","gừng","tỏi","ớt","tiêu","nước màu"],steps:["Cá rửa sạch, khứa 2-3 đường hai bên mình cá.","Lót gừng thái lát xuống đáy tộ đất hoặc nồi nhỏ.","Cho cá vào, thêm nước mắm, đường, nước màu, tỏi ớt.","Đun sôi rồi hạ lửa nhỏ, kho 20-25 phút đến cạn nước.","Thêm chút tiêu, nêm lại."],tip:"Kho trong tộ đất giữ nhiệt đều và cá không bị tanh."},
+{name:"Cá hấp gừng hành",emoji:"🐠",catcls:"eb-man",keys:["cá"],cat:"Mặn",time:"20 phút",cal:200,diff:"Dễ",desc:"Cá hấp giữ nguyên vị tươi ngọt, thanh đạm tốt cho sức khỏe.",ings:["400g cá","gừng","hành lá","nước tương","dầu mè","tiêu"],steps:["Cá rửa sạch, khứa vài đường hai bên, ướp muối 5 phút.","Lót gừng thái sợi và hành lá vào trong bụng và bên trên cá.","Hấp cách thủy 12-15 phút tùy độ dày cá.","Đổ nước tương và dầu mè lên trên cá.","Phi dầu nóng, rưới lên cá cho thơm. Ăn ngay."],tip:"Kiểm tra cá chín bằng cách dùng đũa tách thịt ở phần dày nhất."},
+{name:"Mực xào sả ớt",emoji:"🦑",catcls:"eb-man",keys:["mực"],cat:"Mặn",time:"20 phút",cal:250,diff:"Dễ",desc:"Mực xào sả ớt cay thơm đặc trưng, dai giòn hấp dẫn.",ings:["400g mực ống","3 cây sả","3 quả ớt","tỏi","nước mắm","đường","dầu ăn"],steps:["Mực làm sạch, thái khoanh hoặc xẻ bông.","Chần mực qua nước sôi 30 giây, vớt ra ngay.","Phi sả tỏi ớt thơm với dầu nóng lửa lớn.","Cho mực vào xào nhanh 2-3 phút ở lửa lớn.","Nêm nước mắm đường, đảo đều."],tip:"Chần mực sơ và xào nhanh lửa lớn giúp mực dai giòn không ra nước."},
+{name:"Đậu phụ chiên sốt cà chua",emoji:"🍅",catcls:"eb-chay",keys:["đậu phụ","cà chua"],cat:"Chay",time:"20 phút",cal:220,diff:"Dễ",desc:"Đậu phụ chiên vàng sốt cà chua ngọt chua dịu nhẹ.",ings:["400g đậu phụ","2 quả cà chua","hành tím","tỏi","nước mắm hoặc tương","đường","hành lá","dầu ăn"],steps:["Đậu phụ cắt miếng vuông, chiên ngập dầu đến vàng đều, vớt ra để ráo.","Phi hành tỏi thơm, xào cà chua đến nát và ra nước.","Nêm nước mắm/tương, đường cho vừa ăn.","Cho đậu chiên vào đảo nhẹ trong sốt 2-3 phút cho ngấm.","Rắc hành lá, trút ra đĩa."],tip:"Đậu phụ phải thật ráo nước và chiên đến vàng sẽ không bị nát khi xào."},
+{name:"Canh đậu phụ cà chua",emoji:"🫗",catcls:"eb-chay",keys:["đậu phụ","cà chua"],cat:"Chay",time:"15 phút",cal:140,diff:"Dễ",desc:"Canh thanh mát chua dịu nhẹ nhàng, phù hợp ăn chay.",ings:["200g đậu phụ","2 quả cà chua","hành lá","muối","đường","dầu ăn"],steps:["Đậu phụ cắt khối vuông nhỏ. Cà chua bổ múi cau.","Phi hành tím thơm, xào cà chua 2 phút.","Thêm nước khoảng 600ml, đun sôi.","Cho đậu phụ vào, đun 5 phút.","Nêm muối đường cho vừa. Rắc hành lá và tiêu."],tip:"Cho đậu phụ vào sau cùng để không bị vỡ nát."},
+{name:"Khoai tây chiên giòn",emoji:"🍟",catcls:"eb-vat",keys:["khoai tây"],cat:"Ăn vặt",time:"25 phút",cal:290,diff:"Dễ",desc:"Khoai tây chiên giòn rụm tự làm tại nhà.",ings:["400g khoai tây","dầu chiên","muối","tiêu","paprika"],steps:["Khoai tây gọt vỏ, thái que đều, ngâm nước lạnh 20 phút.","Vớt ra thấm thật khô bằng khăn giấy.","Chiên lần 1: dầu 150°C, chiên 5-6 phút đến hơi chín, vớt ra.","Để nguội 10 phút. Chiên lần 2: dầu 185°C, chiên 2-3 phút đến vàng giòn.","Vớt ra rắc muối, tiêu, paprika ngay khi còn nóng."],tip:"Chiên hai lần tạo lớp vỏ giòn rụm bên ngoài, mềm bên trong."},
+{name:"Rau cải xào tỏi",emoji:"🥬",catcls:"eb-chay",keys:["rau cải"],cat:"Chay",time:"10 phút",cal:90,diff:"Dễ",desc:"Rau cải xào tỏi đơn giản nhanh gọn, xanh giòn ngon.",ings:["400g rau cải xanh hoặc cải ngọt","4 tép tỏi","muối","dầu ăn","nước"],steps:["Rau cải rửa sạch, cắt khúc vừa ăn, để ráo.","Tỏi đập dập, băm nhỏ.","Làm nóng chảo lửa lớn với dầu, phi tỏi đến thơm.","Cho rau vào, đảo nhanh lửa lớn.","Thêm chút nước, nêm muối, đảo thêm 1-2 phút đến rau chín tới. Ăn ngay."],tip:"Xào lửa lớn nhanh tay để rau giữ màu xanh đẹp và giòn."},
+{name:"Nấm xào tỏi bơ",emoji:"🍄",catcls:"eb-chay",keys:["nấm"],cat:"Chay",time:"15 phút",cal:180,diff:"Dễ",desc:"Nấm xào bơ tỏi thơm béo, có thể ăn với steak hay cơm.",ings:["300g nấm hương hoặc nấm kim châm","30g bơ","3 tép tỏi","muối","tiêu","mùi tây"],steps:["Nấm rửa sạch, bỏ chân, thái lát hoặc xé miếng.","Làm nóng chảo lửa vừa, cho bơ vào tan chảy.","Phi tỏi thái lát đến vàng thơm.","Cho nấm vào xào lửa lớn 4-5 phút không đảo nhiều.","Nêm muối tiêu, rắc mùi tây. Ăn ngay."],tip:"Đừng xào nhiều lần — nấm cần để yên cho ra nước rồi mới đảo."},
+{name:"Ngô luộc",emoji:"🌽",catcls:"eb-vat",keys:["ngô"],cat:"Ăn vặt",time:"15 phút",cal:130,diff:"Dễ",desc:"Ngô luộc chín vàng dẻo ngọt, đơn giản nhất thế giới.",ings:["4 bắp ngô","muối","nước"],steps:["Bóc bớt vỏ ngoài, giữ lại 1-2 lớp lá và râu ngô.","Cho vào nồi nước có muối, đun sôi.","Luộc 15-20 phút đến khi hạt ngô mềm chín.","Vớt ra để ráo, ăn nóng.","Có thể thêm muối hoặc bơ khi ăn."],tip:"Để lại lá và râu khi luộc giúp ngô ngọt và thơm hơn."},
+{name:"Sinh tố bơ sữa",emoji:"🥑",catcls:"eb-uong",keys:["bơ"],cat:"Đồ uống",time:"5 phút",cal:320,diff:"Dễ",desc:"Sinh tố bơ sữa đặc mịn ngọt béo, bổ dưỡng.",ings:["1 quả bơ chín","200ml sữa tươi","2 thìa đường","đá viên"],steps:["Bơ bổ đôi, bỏ hạt, nạo lấy thịt.","Cho bơ, sữa, đường vào máy xay.","Thêm đá viên.","Xay mịn đều.","Rót ra ly, uống ngay."],tip:"Bơ chín mềm (vỏ sẫm, ấn nhẹ có) mới ngon và ngọt."},
+{name:"Sinh tố chuối sữa",emoji:"🍌",catcls:"eb-uong",keys:["chuối"],cat:"Đồ uống",time:"5 phút",cal:280,diff:"Dễ",desc:"Sinh tố chuối đơn giản ngọt béo bổ năng lượng.",ings:["2 quả chuối chín","200ml sữa tươi","1 thìa mật ong","đá"],steps:["Chuối bóc vỏ, cắt khúc.","Cho vào máy xay cùng sữa, mật ong.","Thêm đá.","Xay mịn.","Rót ra ly và uống ngay."],tip:"Chuối đông lạnh sẽ tạo ra sinh tố sánh mịn hơn không cần đá."},
+{name:"Chè chuối nước cốt dừa",emoji:"🍵",catcls:"eb-ngot",keys:["chuối"],cat:"Ngọt",time:"20 phút",cal:260,diff:"Dễ",desc:"Chè chuối nước cốt dừa thơm béo ngọt đặc trưng miền Nam.",ings:["4 quả chuối","200ml nước cốt dừa","đường","bột năng","muối","vừng rang"],steps:["Chuối bóc vỏ, cắt lát chéo.","Đun nước cốt dừa với 200ml nước và đường đến sôi.","Cho chuối vào, nấu 3-5 phút.","Hoà bột năng với nước lạnh, đổ vào khuấy đều đến sánh.","Múc ra chén, rắc vừng."],tip:"Thêm ít muối vào nước cốt dừa để làm nổi vị béo."},
+{name:"Sinh tố dâu tây",emoji:"🍓",catcls:"eb-uong",keys:["dâu tây"],cat:"Đồ uống",time:"5 phút",cal:150,diff:"Dễ",desc:"Sinh tố dâu tươi đỏ đẹp, ngọt chua mát lạnh.",ings:["200g dâu tây","150ml sữa tươi","2 thìa đường","đá viên"],steps:["Dâu rửa sạch, bỏ cuống, cắt đôi.","Cho dâu, sữa, đường vào máy xay.","Thêm đá viên.","Xay mịn.","Rót ra ly, trang trí vài quả dâu và uống ngay."],tip:"Đông lạnh dâu trước 1-2 tiếng để sinh tố ngon và đặc hơn."},
+{name:"Sữa chua dầm dâu tây",emoji:"🥛",catcls:"eb-ngot",keys:["sữa chua","dâu tây"],cat:"Ngọt",time:"5 phút",cal:160,diff:"Dễ",desc:"Sữa chua dầm trái cây mát lạnh bổ dưỡng tuyệt vời.",ings:["200g sữa chua","100g dâu tây","1 thìa mật ong","granola"],steps:["Dâu tây rửa sạch, cắt lát.","Cho sữa chua vào ly hoặc bát.","Bày dâu tây lên trên.","Rưới mật ong.","Rắc granola và ăn ngay."],tip:"Dùng sữa chua không đường để kiểm soát độ ngọt theo ý."},
+{name:"Cơm chiên dương châu",emoji:"🍳",catcls:"eb-man",keys:["cơm nguội","cơm","gạo"],cat:"Mặn",time:"15 phút",cal:420,diff:"Dễ",desc:"Cơm chiên kinh điển thơm ngon tận dụng cơm thừa.",ings:["2 chén cơm nguội","2 quả trứng","xúc xích hoặc thịt","hành lá","dầu ăn","nước mắm","nước tương","tiêu"],steps:["Đập trứng vào cơm nguội, trộn đều.","Làm nóng chảo dầu lửa lớn, cho hành thái nhỏ vào phi.","Cho xúc xích hoặc thịt vào xào sơ.","Đổ cơm trứng vào, dàn phẳng — đừng đảo ngay.","Khi mặt dưới ráo vàng, xúc lên đảo đều. Nêm nước mắm, tiêu."],tip:"Cơm nguội lạnh tủ lạnh qua đêm chiên ngon nhất, hạt tơi không dính."},
+{name:"Bông cải xào tỏi",emoji:"🥦",catcls:"eb-chay",keys:["bông cải","súp lơ","broccoli"],cat:"Chay",time:"12 phút",cal:100,diff:"Dễ",desc:"Bông cải xanh giòn tươi xào tỏi thanh nhẹ.",ings:["300g bông cải xanh","3 tép tỏi","muối","dầu ăn","nước"],steps:["Bông cải tách bông nhỏ, rửa sạch.","Chần qua nước sôi 1 phút, vớt ra ngay vào nước lạnh.","Phi tỏi vàng thơm.","Cho bông cải vào xào lửa lớn 2-3 phút.","Nêm muối, thêm chút nước, đảo đều và trút ra."],tip:"Chần nước lạnh ngay sau khi chần nóng giúp giữ màu xanh đẹp."},
+{name:"Rau muống xào tỏi",emoji:"🌿",catcls:"eb-chay",keys:["rau muống"],cat:"Chay",time:"8 phút",cal:80,diff:"Dễ",desc:"Rau muống xào tỏi giòn tươi, nhanh nhất bữa cơm.",ings:["400g rau muống","4 tép tỏi","muối","dầu ăn"],steps:["Rau muống nhặt sạch, bẻ khúc vừa ăn, rửa sạch để ráo.","Tỏi đập dập.","Làm nóng chảo lửa lớn với dầu, phi tỏi thơm vàng.","Cho rau vào xào lửa lớn, đảo nhanh liên tục.","Nêm muối, xào thêm 1-2 phút đến rau vừa chín. Trút ra ngay."],tip:"Lửa phải to nhất và xào cực nhanh để rau xanh giòn không ra nước."},
+{name:"Ngao xào sả ớt",emoji:"🦪",catcls:"eb-man",keys:["ngao","nghêu"],cat:"Mặn",time:"15 phút",cal:200,diff:"Dễ",desc:"Ngao xào sả ớt cay thơm, nước ngọt hải sản đậm đà.",ings:["500g ngao","3 cây sả","3 ớt","tỏi","nước mắm","đường","rau mùi"],steps:["Ngao ngâm nước muối 1-2 tiếng cho nhả cát, rửa sạch.","Phi sả tỏi ớt thơm với dầu nóng lửa lớn.","Cho ngao vào đảo đều, đậy nắp 2-3 phút.","Khi ngao mở miệng, nêm nước mắm đường.","Rắc rau mùi. Ăn ngay khi còn nóng."],tip:"Ngao mở miệng là chín — đun thêm sẽ dai cứng."},
+{name:"Hot chocolate",emoji:"🍫",catcls:"eb-uong",keys:["sữa"],cat:"Đồ uống",time:"10 phút",cal:250,diff:"Dễ",desc:"Sô cô la nóng ấm áp ngọt ngào, an ủi những ngày lạnh.",ings:["300ml sữa tươi","2 thìa bột cacao","2 thìa đường","1/4 thìa vani","kem tươi đánh bông"],steps:["Hoà bột cacao với 3 thìa nước nóng thành hồ.","Đun sữa ấm, không sôi.","Cho hỗn hợp cacao vào sữa, khuấy đều.","Thêm đường và vani, khuấy tan.","Rót ra ly, múc kem tươi lên trên và uống ngay."],tip:"Pha cacao trước với nước nóng giúp không bị vón cục khi cho vào sữa."},
+{name:"Cà phê sữa đá",emoji:"☕",catcls:"eb-uong",keys:["cà phê"],cat:"Đồ uống",time:"5 phút",cal:120,diff:"Dễ",desc:"Cà phê phin Việt đặc sánh chan sữa đặc, uống với đá.",ings:["2 thìa cà phê rang xay","nước sôi 90°C","sữa đặc","đá viên"],steps:["Tráng phin bằng nước nóng.","Cho cà phê vào phin, đặt nắp chặn giữ nhiệt.","Cho 30ml nước sôi vào, đợi 30 giây.","Đổ tiếp 100ml nước, đợi 4-5 phút phin nhỏ giọt hết.","Cho sữa đặc vào ly đá, đổ cà phê vào, khuấy đều."],tip:"Nước 90°C (không sôi 100°C) cho cà phê ngon nhất, không đắng."},
+{name:"Nước chanh bạc hà",emoji:"🍋",catcls:"eb-uong",keys:["chanh"],cat:"Đồ uống",time:"5 phút",cal:60,diff:"Dễ",desc:"Nước chanh bạc hà mát lạnh giải nhiệt cực tốt.",ings:["3 quả chanh","lá bạc hà","đường","nước","đá viên"],steps:["Vắt nước cốt chanh.","Pha đường với nước nóng làm syrup, để nguội.","Giã nhẹ lá bạc hà cho ra tinh dầu.","Cho đá vào ly, thêm nước chanh, syrup và bạc hà.","Khuấy đều, trang trí và uống ngay."],tip:"Giã bạc hà nhẹ tay — chỉ cần vài cái đập để tinh dầu tiết ra."},
+{name:"Bánh mì phô mai nướng",emoji:"🧀",catcls:"eb-sang",keys:["phô mai"],cat:"Sáng",time:"10 phút",cal:320,diff:"Dễ",desc:"Bánh mì nướng phô mai chảy bên trong, giòn bên ngoài.",ings:["2 lát bánh mì sandwich","2 lát phô mai","bơ","muối"],steps:["Phết bơ lên cả hai mặt bánh mì.","Đặt phô mai vào giữa hai lát bánh.","Cho vào chảo chống dính lửa nhỏ.","Nướng 2-3 phút đến khi vàng giòn mặt dưới, lật lại.","Nướng thêm 2 phút đến khi phô mai chảy và cả hai mặt vàng."],tip:"Lửa nhỏ để phô mai kịp chảy mà bánh không bị cháy."},
+{name:"Thịt bằm xào hành tây",emoji:"🥩",catcls:"eb-man",keys:["thịt bằm"],cat:"Mặn",time:"15 phút",cal:320,diff:"Dễ",desc:"Thịt bằm xào hành tây đậm đà, nhanh gọn ăn với cơm rất ngon.",ings:["300g thịt heo bằm","1 củ hành tây","3 tép tỏi","2 thìa nước mắm","1 thìa đường","tiêu","dầu ăn","hành lá"],steps:["Hành tây thái hạt lựu, tỏi băm nhỏ.","Làm nóng chảo dầu lửa lớn, phi tỏi thơm.","Cho thịt bằm vào, dùng spatula tán nhỏ, xào đến khi thịt chín đều và không còn hồng.","Cho hành tây vào xào thêm 2 phút đến khi mềm.","Nêm nước mắm, đường, tiêu. Rắc hành lá và trút ra đĩa."],tip:"Dùng spatula tán đều để thịt không bị vón cục to."},
+{name:"Cơm tấm sườn bì chả",emoji:"🍚",catcls:"eb-man",keys:["thịt bằm"],cat:"Mặn",time:"30 phút",cal:580,diff:"Trung bình",desc:"Chả trứng thịt bằm thơm ngon ăn kèm cơm tấm kiểu miền Nam.",ings:["200g thịt heo bằm","2 quả trứng","miến khô","hành tím","nước mắm","đường","tiêu","cơm tấm"],steps:["Miến ngâm nước ấm 10 phút, cắt ngắn 3-4cm.","Trộn thịt bằm, trứng, miến, hành tím, nước mắm, đường, tiêu đều tay.","Đổ hỗn hợp vào khuôn hoặc bát chịu nhiệt, dàn đều mặt.","Hấp cách thủy 20-25 phút đến chả chín chắc.","Cắt miếng, ăn kèm cơm tấm và nước mắm chua ngọt."],tip:"Cho thêm ít nước mắm ngon vào hỗn hợp để chả thơm đậm hơn."},
+{name:"Mì xào thịt bằm cà chua",emoji:"🍝",catcls:"eb-man",keys:["thịt bằm","cà chua"],cat:"Mặn",time:"20 phút",cal:450,diff:"Dễ",desc:"Mì xào sốt cà chua thịt bằm kiểu Bolognese nhanh gọn thơm ngon.",ings:["200g mì ý hoặc mì trứng","250g thịt heo bằm","2 quả cà chua","1 củ hành tây","tỏi","nước tương","dầu ăn","muối","tiêu","rau mùi"],steps:["Luộc mì chín theo hướng dẫn, vớt ra để ráo.","Phi hành tỏi thơm, cho thịt bằm vào xào tán đều đến chín.","Cho cà chua bổ hạt lựu vào, xào đến khi cà chua nhuyễn ra nước.","Nêm nước tương, muối, tiêu. Đun thêm 3-5 phút cho sốt sánh.","Trộn mì với sốt, rắc rau mùi lên trên."],tip:"Thêm chút pasta water (nước luộc mì) vào sốt giúp sốt bám mì tốt hơn."},
+{name:"Bún bò chả thịt bằm",emoji:"🍜",catcls:"eb-man",keys:["thịt bằm"],cat:"Mặn",time:"25 phút",cal:420,diff:"Dễ",desc:"Chả thịt bằm viên mềm ngọt nước dùng thơm ăn kèm bún tươi.",ings:["300g thịt heo bằm","200g bún tươi","hành lá","gừng","nước mắm","đường","tiêu","ít hạt tiêu","tỏi"],steps:["Trộn thịt bằm với hành lá, tỏi, nước mắm, đường, tiêu, nhào đến khi dẻo.","Dùng tay ướt vo thành viên tròn bằng bi.","Đun nước dùng với gừng, khi sôi cho chả thịt vào nấu 8-10 phút đến chả nổi.","Nêm nước mắm, muối cho vừa.","Trụng bún nóng, chan nước dùng và cho chả lên trên, rắc hành lá."],tip:"Thịt bằm cần nhào kỹ để chả dai và không bị bở khi nấu."},
+{name:"Đậu hũ nhồi thịt bằm",emoji:"🟨",catcls:"eb-man",keys:["thịt bằm","đậu phụ"],cat:"Mặn",time:"25 phút",cal:290,diff:"Trung bình",desc:"Đậu hũ nhồi thịt bằm chiên vàng rồi kho tương ngọt đậm đà.",ings:["4 miếng đậu phụ","200g thịt heo bằm","hành lá","tỏi","nước mắm","tương hoisin","đường","dầu ăn"],steps:["Khoét lỗ nhỏ ở giữa từng miếng đậu phụ, lấy phần đậu ra trộn với thịt bằm.","Trộn nhân: thịt bằm, đậu, hành, tỏi, nước mắm. Nhồi vào đậu.","Chiên đậu nhồi đến vàng đều 2 mặt, vớt ra.","Phi tỏi, thêm tương hoisin, đường, ít nước vào nấu sốt.","Cho đậu vào kho sốt 5-7 phút đến ngấm. Rắc hành lá."],tip:"Khoét nhẹ tay để đậu không bị vỡ khi nhồi và chiên."},
+
+];
+
+// ══ STATE & NAV ══
+let navHistory=['home'], ingredients=[], filteredCat='Tất cả';
+
+function goTo(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  document.getElementById('back-btn').style.display=id==='home'?'none':'block';
+  if(navHistory[navHistory.length-1]!==id)navHistory.push(id);
+  if(id==='ings')setTimeout(initSeasonCanvases,100);
+}
+function goBack(){if(navHistory.length>1){navHistory.pop();goTo(navHistory.pop())}}
+function toggleTheme(){document.body.setAttribute('data-theme',document.body.getAttribute('data-theme')==='dark'?'':'dark')}
+
+// ── ingredients ──
+function qs(name){document.getElementById('ing-input').value=name;addIng()}
+function addIng(){
+  const inp=document.getElementById('ing-input'),val=inp.value.trim();
+  if(!val)return;
+  val.split(',').map(s=>s.trim()).filter(Boolean).forEach(p=>{
+    if(!ingredients.some(i=>i.toLowerCase()===p.toLowerCase()))ingredients.push(p);
+  });
+  inp.value='';renderTags();
+}
+function removeIng(name){ingredients=ingredients.filter(i=>i!==name);renderTags()}
+function clearAllIngs(){ingredients=[];renderTags()}
+function renderTags(){
+  const row=document.getElementById('tag-row'),btn=document.getElementById('find-btn');
+  const cw=document.getElementById('clear-all-wrap');
+  if(cw)cw.style.display=ingredients.length>=3?'block':'none';
+  row.innerHTML=ingredients.length===0?'<span class="empty-label">Chưa có nguyên liệu nào...</span>':ingredients.map(i=>`<div class="ing-tag">${i}<button onclick="removeIng('${i.replace(/'/g,"\\'")}')">×</button></div>`).join('');
+  btn.disabled=ingredients.length===0;
+  const st=document.getElementById('fridge-status');
+  if(ingredients.length>0&&fridgeOpen)st.innerHTML=`<div class="fridge-status-dot" style="background:#f59e0b;box-shadow:0 0 6px rgba(245,158,11,.5)"></div><span>${ingredients.length} nguyên liệu đã thêm</span>`;
+}
+
+// ── search ──
+function normalize(s){return s.toLowerCase().replace(/thịt\s*lợn/g,'thịt heo').replace(/thịt\s*gà/g,'gà').replace(/trứng\s*gà/g,'trứng').replace(/thịt\s*bằm/g,'thịt bằm').trim()}
+
+const SEASON_KEYS={
+  spring:{title:'🌸 Món Mùa Xuân',sub:'Tươi mát, nhẹ nhàng',keys:['canh chua','gỏi','rau muống','bông cải','rau cải','cà chua','đậu phụ']},
+  summer:{title:'☀️ Món Mùa Hạ',sub:'Giải nhiệt, mát lành',keys:['sinh tố','chè','nước','đồ uống','sữa chua','bơ','chuối','dâu','ngô']},
+  autumn:{title:'🍂 Món Mùa Thu',sub:'Ấm bụng, đậm vị',keys:['cháo','canh','nấm','khoai tây','súp']},
+  winter:{title:'❄️ Món Mùa Đông',sub:'Nóng hổi, đủ chất',keys:['hot chocolate','cà phê','cháo','canh','thịt kho','phở','lẩu']}
+};
+
+function browseByMode(mode){
+  let recipes=[],title='',sub='';
+  if(mode==='healthy'){
+    recipes=DB.filter(r=>r.cat==='Chay');title='🥦 Món Chay & Healthy';sub=`${recipes.length} món chay, ít calo, tốt cho sức khoẻ`;
+  } else if(mode==='quick'){
+    recipes=DB.filter(r=>{const m=(r.time||'').match(/(\d+)/);return m&&parseInt(m[1])<=15});
+    title='⏱️ Món Ăn Dưới 15 Phút';sub=`${recipes.length} món siêu nhanh cho bữa ăn bận rộn`;
+  } else if(SEASON_KEYS[mode]){
+    const sk=SEASON_KEYS[mode];title=sk.title;sub=sk.sub;
+    recipes=DB.filter(r=>{const rn=(r.name+' '+(r.desc||'')+' '+(r.cat||'')).toLowerCase(),rk=(r.keys||[]).join(' ').toLowerCase();return sk.keys.some(k=>rn.includes(k)||rk.includes(k))});
+    if(mode==='summer')recipes=[...new Set([...recipes,...DB.filter(r=>r.cat==='Đồ uống'||r.cat==='Ngọt')])];
+    if(mode==='spring')recipes=[...new Set([...recipes,...DB.filter(r=>r.cat==='Chay')])];
+    if(mode==='winter')recipes=[...new Set([...recipes,...DB.filter(r=>r.cat==='Đồ uống')])];
+  }
+  document.getElementById('res-title').textContent=title;
+  document.getElementById('res-sub-text').textContent=sub;
+  document.getElementById('rp-count').textContent=recipes.length+' món';
+  document.getElementById('rp-filter').innerHTML='';
+  document.getElementById('rp-grid').innerHTML=!recipes.length?'<div class="empty-hint">Không tìm thấy món phù hợp.</div>':''
+  if(recipes.length)renderGrid(recipes);
+  goTo('results');
+}
+
+function findDishes(){
+  const normIngs=ingredients.map(normalize);
+  const matched=DB.filter(r=>r.keys.some(k=>normIngs.some(ni=>ni.includes(k)||k.includes(ni))));
+  matched.sort((a,b)=>{
+    const aS=a.keys.filter(k=>normIngs.some(ni=>ni.includes(k)||k.includes(ni))).length;
+    const bS=b.keys.filter(k=>normIngs.some(ni=>ni.includes(k)||k.includes(ni))).length;
+    return bS-aS;
+  });
+  document.getElementById('rp-count').textContent=matched.length+' món';
+  document.getElementById('res-sub-text').textContent=ingredients.length?`Từ ${ingredients.length} nguyên liệu: ${ingredients.slice(0,4).join(', ')}${ingredients.length>4?' ...':''}`:''
+  closeFridge();
+  if(!matched.length){
+    document.getElementById('rp-filter').innerHTML='';
+    document.getElementById('rp-grid').innerHTML='<div class="empty-hint">😕 Chưa tìm thấy món phù hợp. Thử thêm nguyên liệu khác nhé!</div>';
+    document.getElementById('res-title').textContent='🍽️ Món Ăn Cần Tìm';
+    goTo('results');return;
+  }
+  document.getElementById('res-title').textContent='🍽️ Món Ăn Cần Tìm';
+  const cats=['Tất cả',...new Set(matched.map(r=>r.cat))];
+  filteredCat='Tất cả';
+  document.getElementById('rp-filter').innerHTML=cats.map(c=>`<span class="filter-chip${c===filteredCat?' active':''}" onclick="filterCat('${c}')">${c}</span>`).join('');
+  renderGrid(matched);goTo('results');
+}
+function filterCat(cat){
+  filteredCat=cat;
+  document.querySelectorAll('.filter-chip').forEach(el=>el.classList.toggle('active',el.textContent===cat));
+  const normIngs=ingredients.map(normalize);
+  const matched=DB.filter(r=>r.keys.some(k=>normIngs.some(ni=>ni.includes(k)||k.includes(ni))));
+  renderGrid(cat==='Tất cả'?matched:matched.filter(r=>r.cat===cat));
+}
+function getCatCls(cat){return{'Mặn':'eb-man','Chay':'eb-chay','Ngọt':'eb-ngot','Đồ uống':'eb-uong','Ăn vặt':'eb-vat','Sáng':'eb-sang'}[cat]||'eb-man'}
+function renderGrid(recipes){
+  const grid=document.getElementById('rp-grid');
+  if(!recipes.length){grid.innerHTML='<div class="empty-hint">Không có món nào trong danh mục này.</div>';return}
+  grid.innerHTML=recipes.map(r=>`
+<div class="rc" onclick="showDetail(${DB.indexOf(r)})">
+  <div class="rc-emoji-banner ${r.catcls||getCatCls(r.cat)}">
+    <div class="eb-circle"></div>
+    <span class="eb-icon">${r.emoji||'🍽️'}</span>
+  </div>
+  <div class="rc-body">
+    <h4>${r.name}</h4>
+    <p>${r.desc}</p>
+    <div class="rc-meta">
+      <span class="badge bg">${r.cat}</span>
+      <span class="badge bw">⏱ ${r.time}</span>
+      <span class="badge" style="background:rgba(26,111,212,.1);color:var(--primary)">🔥 ${r.cal} kcal</span>
+      <span class="badge" style="background:rgba(26,111,212,.08);color:var(--primary)">${r.diff}</span>
+    </div>
+  </div>
+</div>`).join('');
+}
+function showDetail(idx){
+  const r=DB[idx],cls=r.catcls||getCatCls(r.cat);
+  document.getElementById('detail-wrap').innerHTML=`
+<div class="detail-emoji-hero ${cls}">
+  <div class="deh-circle"></div>
+  <span class="deh-icon">${r.emoji||'🍽️'}</span>
+  <div class="deh-title">
+    <h1>${r.name}</h1>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span class="badge" style="background:rgba(255,255,255,.25);color:#fff">${r.cat}</span>
+      <span class="badge" style="background:rgba(255,255,255,.25);color:#fff">⏱ ${r.time}</span>
+      <span class="badge" style="background:rgba(255,255,255,.25);color:#fff">📊 ${r.diff}</span>
+      <span class="badge" style="background:rgba(255,255,255,.25);color:#fff">🔥 ${r.cal} kcal</span>
+    </div>
+  </div>
+</div>
+<div class="detail-section">
+  <h3>📊 Thông tin dinh dưỡng</h3>
+  <div class="nut-row">
+    <div class="nut-item"><div class="nut-val">${r.cal}</div><div class="nut-lbl">Calories</div></div>
+    <div class="nut-item"><div class="nut-val">${r.time}</div><div class="nut-lbl">Thời gian</div></div>
+    <div class="nut-item"><div class="nut-val">${r.diff}</div><div class="nut-lbl">Độ khó</div></div>
+    <div class="nut-item"><div class="nut-val">${r.cat}</div><div class="nut-lbl">Loại món</div></div>
+  </div>
+</div>
+<div class="detail-section">
+  <h3>🛒 Nguyên liệu</h3>
+  <div class="ing-list">${r.ings.map(i=>`<div class="ing-pill">${i}</div>`).join('')}</div>
+</div>
+<div class="detail-section">
+  <h3>👨‍🍳 Cách làm từng bước</h3>
+  ${r.steps.map((s,i)=>`<div class="step-item"><div class="step-num">${i+1}</div><div class="step-text">${s}</div></div>`).join('')}
+</div>
+${r.tip?`<div class="tip-box detail-section"><h3>💡 Mẹo hay</h3><p style="line-height:1.78;font-weight:500;margin-top:4px">${r.tip}</p></div>`:''}`;
+  goTo('detail');
+}
+
+if(document.getElementById('page-ings').classList.contains('active')){
+  setTimeout(initSeasonCanvases,200);
+}
+</script>
+</body>
+</html>
